@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mini_robo/constants/splash.dart';
-import 'package:mini_robo/root.dart';
  
 
 void main()async {
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white
       ),
-      home:GlassBottomNavBar(),
+      home: RobotScreen(),
     );
   }
 }
