@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/black_custome_text.dart';
