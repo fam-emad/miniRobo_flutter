@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/black_custome_text.dart';
+import 'package:mini_robo/shared/second_custome_text.dart';
 
 class ButtonCustom extends StatefulWidget {
   final String text;
@@ -48,7 +48,7 @@ class _ButtonCustomState extends State<ButtonCustom> {
           ),
           child: Row(
             children: [
-              BlackCustomeText(text: widget.text, fontSize: widget.fontSize),
+              SecondCustomeText(text: widget.text, fontSize: widget.fontSize),
               Image(
                 image: AssetImage("assets/images/Treble Clef.png"),
                 width: 48,

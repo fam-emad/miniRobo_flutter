@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/black_custome_text.dart';
 import 'package:mini_robo/shared/bottom_navigation_custom.dart';
 import 'package:mini_robo/shared/button_custom.dart';
 import 'package:mini_robo/shared/custom_glass_box.dart';
+import 'package:mini_robo/shared/second_custome_text.dart';
 import 'package:mini_robo/shared/title_custom.dart';
 
 class Home extends StatelessWidget {
@@ -54,8 +54,8 @@ class Home extends StatelessWidget {
             ),
 
             SizedBox(height: 150),
-            BlackCustomeText(text: "Let’s explore more with", fontSize: 24),
-            BlackCustomeText(text: "Chief Smile Officer", fontSize: 24),
+            SecondCustomeText(text: "Let’s explore more with", fontSize: 24),
+            SecondCustomeText(text: "Chief Smile Officer", fontSize: 24),
           ],
         ),
       ),
