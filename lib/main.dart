@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mini_robo/features/movement.dart';
+import 'package:mini_robo/shared/bottom_navigation_custom.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Movement(),
+      home: BottomNavigationCustom(),
     );
   }
 }

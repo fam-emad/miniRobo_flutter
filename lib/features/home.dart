@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/bottom_navigation_custom.dart';
 import 'package:mini_robo/shared/button_custom.dart';
 import 'package:mini_robo/shared/custom_glass_box.dart';
 import 'package:mini_robo/shared/second_custome_text.dart';
@@ -59,8 +58,6 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-
-      bottomNavigationBar: BottomNavigationCustom(),
     );
   }
 }

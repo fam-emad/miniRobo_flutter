@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/shared/bottom_navigation_custom.dart';
 import 'package:mini_robo/shared/switch_custom.dart';
 import 'package:mini_robo/shared/title_custom.dart';
 
@@ -38,7 +37,6 @@ class _MovementState extends State<Movement> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationCustom(),
     );
   }
 }
