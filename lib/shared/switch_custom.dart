@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
+import 'package:mini_robo/shared/second_custome_text.dart';
 
 class SwitchCustom extends StatefulWidget {
   const SwitchCustom({super.key});
@@ -29,7 +30,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
               AppColors.linearColor.withValues(alpha: 0.05),
             ],
           ),
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(30),
           border: Border.all(
             color: AppColors.textColor2.withValues(alpha: 0.2),
             width: 3,
@@ -55,17 +56,13 @@ class _SwitchCustomState extends State<SwitchCustom> {
                     ),
                   ],
                   color: AppColors.primaryColor.withValues(alpha: 0.9),
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(27),
                 ),
                 child: Center(
-                  child: Text(
-                    inManualMode ? 'Manual' : 'Auto',
-                    style: TextStyle(
-                      fontFamily: 'inter',
-                      fontWeight: FontWeight.w900,
-                      fontSize: 26,
-                      color: AppColors.secondaryColor,
-                    ),
+                  child: SecondCustomeText(
+                    text: inManualMode ? "Manual" : "Auto ",
+                    fontSize: 26,
+                    isBlack: false,
                   ),
                 ),
               ),
