@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mini_robo/features/home.dart';
 import 'package:mini_robo/features/movement.dart';
 
 void main() async {

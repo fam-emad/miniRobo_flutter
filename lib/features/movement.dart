@@ -16,15 +16,14 @@ class _MovementState extends State<Movement> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 75.0, 0.0, 0),
+          padding: const EdgeInsets.fromLTRB(10.0, 60.0, 0.0, 0),
           child: Column(
             children: [
               CustomTitle(),
               SizedBox(height: 15),
 
               SwitchCustom(),
-              SizedBox(height: 300),
-
+              SizedBox(height: 15),
               Row(
                 children: [
                   SizedBox(width: 10),
