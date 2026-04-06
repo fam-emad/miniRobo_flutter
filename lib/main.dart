@@ -1,35 +1,27 @@
- 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mini_robo/constants/start.dart';
- 
+import 'package:mini_robo/features/home.dart';
+// import 'package:mini_robo/features/start.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await SystemChrome.setPreferredOrientations([
-DeviceOrientation.portraitUp
- ]);
- 
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
- 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Mini Robot',
       theme: ThemeData(
         splashColor: Colors.transparent,
-        scaffoldBackgroundColor: Colors.white
+        scaffoldBackgroundColor: Colors.white,
       ),
-      home: Start(),
+      home: Home(),
     );
   }
 }
-
-
