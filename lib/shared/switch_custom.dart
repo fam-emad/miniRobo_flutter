@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/second_custome_text.dart';
+import 'package:mini_robo/shared/texts/second_custome_text.dart';
 
 class SwitchCustom extends StatefulWidget {
   const SwitchCustom({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/shared/bottom_navigation_custom.dart';
 import 'package:mini_robo/shared/switch_custom.dart';
-import 'package:mini_robo/shared/title_custom.dart';
+import 'package:mini_robo/shared/texts/title_custom.dart';
 
 class Movement extends StatefulWidget {
   const Movement({super.key});
@@ -23,8 +23,8 @@ class _MovementState extends State<Movement> {
               SizedBox(height: 15),
 
               SwitchCustom(),
-              SizedBox(height: 300),
-
+             // SizedBox(height: 300),
+               Spacer(),
               Row(
                 children: [
                   SizedBox(width: 10),

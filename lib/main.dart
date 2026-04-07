@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mini_robo/features/home.dart';
-import 'package:mini_robo/features/movement.dart';
+import 'package:mini_robo/features/home/home.dart';
+import 'package:mini_robo/features/information/information.dart';
+import 'package:mini_robo/features/movement/movement.dart';
+ 
+import 'package:mini_robo/features/start.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Movement(),
+      home: Information(),
     );
   }
 }
