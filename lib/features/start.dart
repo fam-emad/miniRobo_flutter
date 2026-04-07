@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/features/home/home.dart';
-import 'package:mini_robo/features/movement/movement.dart';
+import 'package:mini_robo/features/home.dart';
+import 'package:mini_robo/features/movement.dart';
 import 'package:mini_robo/shared/bottom_navigation_custom.dart';
-import 'package:mini_robo/shared/buttons/button_custom.dart';
+import 'package:mini_robo/shared/button_custom.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});

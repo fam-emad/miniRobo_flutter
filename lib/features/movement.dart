@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/shared/bottom_navigation_custom.dart';
 import 'package:mini_robo/shared/switch_custom.dart';
-import 'package:mini_robo/shared/texts/title_custom.dart';
+import 'package:mini_robo/shared/title_custom.dart';
 
 class Movement extends StatefulWidget {
   const Movement({super.key});
@@ -16,7 +15,7 @@ class _MovementState extends State<Movement> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 75.0, 0.0, 0),
+          padding: const EdgeInsets.fromLTRB(10.0, 60.0, 0.0, 0),
           child: Column(
             children: [
               CustomTitle(),
@@ -39,7 +38,6 @@ class _MovementState extends State<Movement> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationCustom(),
     );
   }
 }
