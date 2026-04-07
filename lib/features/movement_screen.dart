@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/shared/switch_custom.dart';
-import 'package:mini_robo/shared/title_custom.dart';
+import 'package:mini_robo/shared/custom_switch.dart';
+import 'package:mini_robo/shared/custom_title.dart';
 
 class Movement extends StatefulWidget {
   const Movement({super.key});

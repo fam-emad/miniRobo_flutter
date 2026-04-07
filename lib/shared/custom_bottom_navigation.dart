@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/features/camera.dart';
-import 'package:mini_robo/features/home.dart';
-import 'package:mini_robo/features/information.dart';
-import 'package:mini_robo/features/movement.dart';
+import 'package:mini_robo/features/camera_screens/main_camera_screen.dart';
+import 'package:mini_robo/features/home_screen.dart';
+import 'package:mini_robo/features/information_screen.dart';
+import 'package:mini_robo/features/movement_screen.dart';
  
 
 class BottomNavigationCustom extends StatefulWidget {

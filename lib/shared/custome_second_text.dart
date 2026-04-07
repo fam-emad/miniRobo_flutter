@@ -4,24 +4,27 @@ import 'package:mini_robo/core/app_colors.dart';
 class SecondCustomeText extends StatelessWidget {
   final String text;
   final double fontSize;
-  final Color? font_color;
+  final Color? fontColor;
   final bool isBlack;
   const SecondCustomeText({
     super.key,
     required this.text,
     required this.fontSize,
-    this.isBlack = true, this.font_color,
+    this.isBlack = true,
+    this.fontColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontFamily: 'inter',
-        fontWeight: FontWeight.w900,
-        fontSize: fontSize,
-        color: font_color   ?? AppColors.textColor ,
+    return Center(
+      child: Text(
+        text,
+        style: TextStyle(
+          fontFamily: 'inter',
+          fontWeight: FontWeight.w900,
+          fontSize: fontSize,
+          color: fontColor ?? AppColors.textColor,
+        ),
       ),
     );
   }
