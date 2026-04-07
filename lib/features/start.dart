@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,11 +22,11 @@ class Start extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset('assets/image/robo1.png'),
+                Image.asset('assets/images/robot_happy.png'),
                 Positioned(
                   // left: 2,
                   child: SvgPicture.asset(
-                    'assets/image/shadow.svg',
+                    'assets/images/shadow.svg',
                     // colorFilter: ColorFilter.mode(Colors.blue, BlendMode.srcIn),
                   ),
                 ),

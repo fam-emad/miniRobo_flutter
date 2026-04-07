@@ -45,6 +45,7 @@ class _CustomTextfildState extends State<CustomTextfild> {
           return 'please fill ${widget.text}';
         }
         null;
+        return null;
       },
       obscureText: _obscureText,
       style: TextStyle(color: widget.txtcolor ?? Colors.white),
