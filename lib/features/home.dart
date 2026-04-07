@@ -49,10 +49,11 @@ class Home extends StatelessWidget {
             ButtonCustom(
               text: 'Start the party',
               fontSize: 26,
-              icon: Icons.music_note,
+              icon: Icons.music_note, isimage: true,
             ),
 
-            SizedBox(height: 150),
+           // SizedBox(height: 150),
+           Spacer(),
             SecondCustomeText(text: "Let’s explore more with", fontSize: 24),
             SecondCustomeText(text: "Chief Smile Officer", fontSize: 24),
           ],

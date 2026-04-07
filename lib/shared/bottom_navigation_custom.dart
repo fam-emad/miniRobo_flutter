@@ -5,6 +5,7 @@ import 'package:mini_robo/features/camera.dart';
 import 'package:mini_robo/features/home.dart';
 import 'package:mini_robo/features/information.dart';
 import 'package:mini_robo/features/movement.dart';
+ 
 
 class BottomNavigationCustom extends StatefulWidget {
   const BottomNavigationCustom({super.key});

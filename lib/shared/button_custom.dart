@@ -6,14 +6,20 @@ import 'package:mini_robo/shared/second_custome_text.dart';
 class ButtonCustom extends StatefulWidget {
   final String text;
   final double fontSize;
-  final IconData icon;
+  final IconData ?icon;
   final bool isSelected;
+  final bool isimage;
+  final Color? backColor;
+   final Function()? onTap;
+  
+  
   const ButtonCustom({
     super.key,
     required this.text,
     required this.fontSize,
-    required this.icon,
-    this.isSelected = false,
+      this.icon,
+    this.isSelected = false, required this.isimage, this.backColor, this.onTap, 
+
   });
 
   @override
@@ -23,38 +29,50 @@ class ButtonCustom extends StatefulWidget {
 class _ButtonCustomState extends State<ButtonCustom> {
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadiusGeometry.circular(40),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
-        child: Container(
-          padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-          width: 350,
-          height: 97,
-          decoration: BoxDecoration(
-            color: AppColors.textColor2.withValues(alpha: 0.8),
-            borderRadius: BorderRadiusGeometry.circular(40),
-            border: Border.all(
-              color: AppColors.textColor2.withValues(alpha: 1),
-              width: 1.5,
+    return GestureDetector(
+      onTap:widget.onTap,
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(40),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+            width: 350,
+            height: 97,
+            decoration: BoxDecoration(
+              ////
+               gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [Color(0xFFFFFFFF), Color(0xFF86B4E5)],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Color.fromARGB(114, 0, 0, 0).withValues(alpha: 0.5),
-                blurRadius: 150,
-                offset: Offset(0, 5),
+              //color:widget.backColor?? AppColors.textColor2.withValues(alpha: 0.8),
+              borderRadius: BorderRadiusGeometry.circular(40),
+              border: Border.all(
+                color: AppColors.textColor2.withValues(alpha: 1),
+                width: 1.5,
               ),
-            ],
-          ),
-          child: Row(
-            children: [
-              SecondCustomeText(text: widget.text, fontSize: widget.fontSize),
-              Image(
-                image: AssetImage("assets/images/Treble Clef.png"),
-                width: 48,
-                fit: BoxFit.contain,
-              ),
-            ],
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(114, 120,120, 120).withValues(alpha: 0.5),
+                  blurRadius: 150,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                
+                SecondCustomeText(text: widget.text, fontSize: widget.fontSize,font_color: AppColors.primaryColor,),
+                widget.isimage?
+                Image(
+                  image: AssetImage("assets/images/Treble Clef.png"),
+                  width: 48,
+                  fit: BoxFit.contain,
+                ): SizedBox.shrink(),
+              ],
+            ),
           ),
         ),
       ),

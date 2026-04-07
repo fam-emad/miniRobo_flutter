@@ -22,7 +22,8 @@ class _MovementState extends State<Movement> {
               SizedBox(height: 15),
 
               SwitchCustom(),
-              SizedBox(height: 15),
+             // SizedBox(height: 300),
+               Spacer(),
               Row(
                 children: [
                   SizedBox(width: 10),

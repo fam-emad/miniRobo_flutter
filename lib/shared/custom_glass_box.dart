@@ -5,7 +5,10 @@ import 'package:mini_robo/core/app_colors.dart';
 class CustomGlassBox extends StatelessWidget {
   final String text;
   final IconData icon;
-  const CustomGlassBox({super.key, required this.text, required this.icon});
+  final Color? backColor;
+   final Color? font_color;
+
+  const CustomGlassBox({super.key, required this.text, required this.icon, this.backColor, this.font_color});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class CustomGlassBox extends StatelessWidget {
               //     blurStyle: BlurStyle.normal,
               //   ),
               // ],
-              color: Colors.white.withValues(alpha: 0.3),
+              color:backColor?? Colors.white.withValues(alpha: 0.3),
               borderRadius: BorderRadiusGeometry.circular(40),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.3),
@@ -45,7 +48,7 @@ class CustomGlassBox extends StatelessWidget {
                     fontFamily: 'inter',
                     fontWeight: FontWeight.w900,
                     fontSize: 28,
-                    color: AppColors.textColor2,
+                    color: font_color?? AppColors.textColor2,
                     shadows: [
                       Shadow(
                         color: Color.fromARGB(209, 154, 154, 154),
