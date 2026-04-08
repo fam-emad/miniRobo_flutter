@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/custom_bottom_navigation.dart';
 import 'package:mini_robo/shared/custom_glass_box.dart';
@@ -14,69 +15,101 @@ class Information extends StatefulWidget {
 class _InformationState extends State<Information> {
   @override
   Widget build(BuildContext context) {
-    List<CustomGlassBox> box = [
-      CustomGlassBox(
-        icon: Icons.flash_on,
-        text: 'Battery',
-        font_color: Colors.black,
-        backColor: AppColors.primaryColor,
-      ),
-      CustomGlassBox(
-        icon: Icons.energy_savings_leaf,
-        text: 'Power',
-        font_color: Colors.black,
-        backColor: AppColors.primaryColor,
-      ),
-      CustomGlassBox(
-        icon: Icons.energy_savings_leaf,
-        text: 'Power',
-        font_color: Colors.black,
-        backColor: AppColors.primaryColor,
-      ),
-      CustomGlassBox(
-        icon: Icons.energy_savings_leaf,
-        text: 'Power',
-        font_color: Colors.black,
-        backColor: AppColors.primaryColor,
-      ),
-      CustomGlassBox(
-        icon: Icons.energy_savings_leaf,
-        text: 'Power',
-        font_color: Colors.black,
-        backColor: AppColors.primaryColor,
-      ),
-    ];
+  
     return Scaffold(
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 75.0, 0.0, 0),
-          child: Column(
+      //backgroundColor: Colors.lightGreenAccent,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(0,73,0,0),
+        child: Center(
+          child: Stack(
             children: [
-              //SizedBox(height: 35),
-              CustomTitle(),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: GridView.builder(
-                  itemCount: box.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 5,
-                    childAspectRatio: 1 / 1,
+              
+              Column(
+                children: [
+                  CustomTitle(),
+                   Gap(20),
+                     Row(
+                    children: [
+                      CustomGlassBox(
+                      icon: Icons. phone_iphone,
+                      text: 'Flutter',
+                      font_color: Colors.black,
+                      backColor: AppColors.textColor2,
+                      height: 162,
+                      width: 180,
+                      iconsize: 80,
+                    ),
+                    CustomGlassBox(
+                      icon: Icons.device_hub,
+                      text: 'IOT',
+                      font_color: Colors.black,
+                      backColor: AppColors.primaryColor,
+                       height: 162,
+                      width: 180,
+                      iconsize: 80,
+                      iconcolor:AppColors.secondaryColor ,
+                    ),
+                    ],
                   ),
-                  itemBuilder: (context, index) {
-                    return box[index];
-                  },
-                ),
+                  Gap(20),
+                    Row(
+                    children: [
+                     
+                    CustomGlassBox(
+                      icon: Icons.auto_awesome,
+                      text: 'AI',
+                      font_color: Colors.black,
+                      backColor: AppColors.primaryColor,
+                      height: 162,
+                      width: 180,
+                      iconsize: 80,
+                      iconcolor:AppColors.secondaryColor ,
+                    ),
+                    
+                     CustomGlassBox(
+                      icon: Icons. movie_edit,
+                      text: 'Media',
+                      font_color: Colors.black,
+                      backColor: AppColors.textColor2,
+                       height: 162,
+                      width: 180,
+                      iconsize: 80,
+                    ),
+                    ],
+                  ),
+                 Gap(20),
+                    Row(
+                    children: [
+                     
+                     
+                    
+                     CustomGlassBox(
+                      icon: Icons. control_camera,
+                      text: 'ROV',
+                      font_color: Colors.black,
+                      backColor: AppColors.textColor2,
+                      height: 162,
+                      width: 180,
+                      iconsize: 80,
+                    ),
+                 
+                    ],
+                  ),
+                  //Gap(100)
+                ],
               ),
-              //Spacer(),
-              // Image(image: AssetImage('assets/images/robot_idle.png')),
+                  Positioned(
+                   // left: 20,
+                    bottom: -5,
+                    right: 0,
+                    child:  Image(image: AssetImage('assets/images/robot_learn.png'),width: 205,),
+                  )
             ],
           ),
         ),
       ),
 
-      bottomNavigationBar: BottomNavigationCustom(),
+      // bottomNavigationBar: BottomNavigationCustom(),
     );
   }
 }

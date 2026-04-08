@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
+import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
+import 'package:mini_robo/shared/custom_btm.dart';
 import 'package:mini_robo/shared/custome_second_text.dart';
 
 class SwitchCustom extends StatefulWidget {
@@ -95,7 +97,14 @@ class _SwitchCustomState extends State<SwitchCustom> {
                   fit: BoxFit.contain,
                 ),
               )
-            : Container(),
+            : Container(
+              child: Column(children: [
+                Gap(20),
+                CustomBtm(text: 'Forward', fontSize: 30, isimage: false,ccolor: AppColors.primaryColor,colorfont: AppColors.textColor2,),
+                Gap(20),
+                CustomBtm(text: 'Backward', fontSize: 30, isimage: false,ccolor: AppColors.primaryColor,colorfont: AppColors.textColor2,)
+          
+              ],)  ),
       ],
     );
   }

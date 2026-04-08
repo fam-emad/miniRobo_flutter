@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
 
 class CustomGlassBox extends StatelessWidget {
@@ -7,8 +8,12 @@ class CustomGlassBox extends StatelessWidget {
   final IconData icon;
   final Color? backColor;
    final Color? font_color;
+     final double? height;
+     final double? width;
+     final double? iconsize;
+   final Color? iconcolor;
 
-  const CustomGlassBox({super.key, required this.text, required this.icon, this.backColor, this.font_color});
+  const CustomGlassBox({super.key, required this.text, required this.icon, this.backColor, this.font_color, this.height, this.width, this.iconcolor, this.iconsize});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +25,8 @@ class CustomGlassBox extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
           child: Container(
             padding: EdgeInsets.all(16),
-            width: 141,
-            height: 126,
+            width:width?? 141,
+            height:height?? 126,
             decoration: BoxDecoration(
               // boxShadow: [
               //   BoxShadow(
@@ -32,6 +37,7 @@ class CustomGlassBox extends StatelessWidget {
               //     blurStyle: BlurStyle.normal,
               //   ),
               // ],
+               
               color:backColor?? Colors.white.withValues(alpha: 0.3),
               borderRadius: BorderRadiusGeometry.circular(40),
               border: Border.all(
@@ -41,13 +47,14 @@ class CustomGlassBox extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Icon(icon, size: 45, color: AppColors.icons),
+                Icon(icon, size:iconsize?? 50, color: iconcolor??AppColors.icons),
+                Gap(5),
                 Text(
                   text,
                   style: TextStyle(
                     fontFamily: 'inter',
                     fontWeight: FontWeight.w900,
-                    fontSize: 28,
+                    fontSize: 23,
                     color: font_color?? AppColors.textColor2,
                     shadows: [
                       Shadow(

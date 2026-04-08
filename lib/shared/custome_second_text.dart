@@ -11,7 +11,7 @@ class SecondCustomeText extends StatelessWidget {
     required this.text,
     required this.fontSize,
     this.isBlack = true,
-    this.fontColor,
+    this.fontColor,   
   });
 
   @override
