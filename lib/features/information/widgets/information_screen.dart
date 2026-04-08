@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/custom_bottom_navigation.dart';
-import 'package:mini_robo/shared/custom_glass_box.dart';
-import 'package:mini_robo/shared/custom_title.dart';
+import 'package:mini_robo/custom_bottom_navigation.dart';
+import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
+import 'package:mini_robo/shared/texts/custom_title.dart';
 
 class Information extends StatefulWidget {
   const Information({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/features/camera_screens/camera_modes_screen.dart';
-import 'package:mini_robo/shared/custom_blue.dart';
-import 'package:mini_robo/shared/custome_second_text.dart';
-import 'package:mini_robo/shared/custom_title.dart';
+import 'package:mini_robo/features/camera_screens/widgets/camera_modes_screen.dart';
+import 'package:mini_robo/shared/buttons/custom_blue.dart';
+import 'package:mini_robo/shared/texts/custome_second_text.dart';
+import 'package:mini_robo/shared/texts/custom_title.dart';
 
 class Camera extends StatelessWidget {
   const Camera({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/shared/custome_second_text.dart';
+import 'package:mini_robo/shared/texts/custome_second_text.dart';
 
 class BlueCustom extends StatefulWidget {
   final String text;

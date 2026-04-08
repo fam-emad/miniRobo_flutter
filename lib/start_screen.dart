@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/custom_bottom_navigation.dart';
-import 'package:mini_robo/shared/custom_button.dart';
+import 'package:mini_robo/custom_bottom_navigation.dart';
+import 'package:mini_robo/shared/buttons/custom_button.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});

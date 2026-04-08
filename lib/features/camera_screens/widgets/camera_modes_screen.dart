@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/custom_blue.dart';
-import 'package:mini_robo/shared/custom_bottom_navigation.dart';
-import 'package:mini_robo/shared/custome_second_text.dart';
-import 'package:mini_robo/shared/custom_title.dart';
+import 'package:mini_robo/shared/buttons/custom_blue.dart';
+import 'package:mini_robo/custom_bottom_navigation.dart';
+import 'package:mini_robo/shared/texts/custome_second_text.dart';
+import 'package:mini_robo/shared/texts/custom_title.dart';
 
 class CameraModesScreen extends StatefulWidget {
   const CameraModesScreen({super.key});
