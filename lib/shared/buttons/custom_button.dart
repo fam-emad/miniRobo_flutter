@@ -1,11 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-<<<<<<< HEAD:lib/shared/buttons/custom_button.dart
 import 'package:mini_robo/shared/texts/custome_second_text.dart';
-=======
-import 'package:mini_robo/shared/custom_second_text.dart';
->>>>>>> 86ad73df6d7836be4e320241b0ee040067f8f645:lib/shared/custom_button.dart
 
 class ButtonCustom extends StatefulWidget {
   final String text;
