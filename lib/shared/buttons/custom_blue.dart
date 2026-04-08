@@ -7,6 +7,7 @@ class BlueCustom extends StatefulWidget {
   final double width;
   final double height;
   final Color? font_color;
+  final Widget? navigateTo;
   const BlueCustom({
     super.key,
     required this.text,
@@ -14,6 +15,7 @@ class BlueCustom extends StatefulWidget {
     required this.width,
     required this.height,
     this.font_color,
+    this.navigateTo,
   });
 
   @override
@@ -43,10 +45,18 @@ class _BlueCustomState extends State<BlueCustom> {
             ),
           ],
         ),
-        child: SecondCustomeText(
-          text: widget.text,
-          fontSize: widget.fontSize,
-          fontColor: widget.font_color ?? Colors.white,
+        child: GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => widget.navigateTo ?? CameraModesScreen(),
+            ),
+          ),
+          child: SecondCustomeText(
+            text: widget.text,
+            fontSize: widget.fontSize,
+            fontColor: widget.font_color ?? Colors.white,
+          ),
         ),
       ),
     );

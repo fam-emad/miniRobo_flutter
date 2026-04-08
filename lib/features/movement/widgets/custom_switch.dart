@@ -98,13 +98,27 @@ class _SwitchCustomState extends State<SwitchCustom> {
                 ),
               )
             : Container(
-              child: Column(children: [
-                Gap(20),
-                CustomBtm(text: 'Forward', fontSize: 30, isimage: false,ccolor: AppColors.primaryColor,colorfont: AppColors.textColor2,),
-                Gap(20),
-                CustomBtm(text: 'Backward', fontSize: 30, isimage: false,ccolor: AppColors.primaryColor,colorfont: AppColors.textColor2,)
-          
-              ],)  ),
+                child: Column(
+                  children: [
+                    Gap(20),
+                    CustomBtm(
+                      text: 'Forward',
+                      fontSize: 30,
+                      isimage: false,
+                      ccolor: AppColors.primaryColor,
+                      colorfont: AppColors.textColor2,
+                    ),
+                    Gap(20),
+                    CustomBtm(
+                      text: 'Backward',
+                      fontSize: 30,
+                      isimage: false,
+                      ccolor: AppColors.primaryColor,
+                      colorfont: AppColors.textColor2,
+                    ),
+                  ],
+                ),
+              ),
       ],
     );
   }
