@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/custom_button.dart';
 import 'package:mini_robo/shared/custom_glass_box.dart';
-import 'package:mini_robo/shared/custome_second_text.dart';
+import 'package:mini_robo/shared/custom_second_text.dart';
 import 'package:mini_robo/shared/custom_title.dart';
 
 class Home extends StatelessWidget {

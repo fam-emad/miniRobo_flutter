@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
+import 'package:mini_robo/features/camera_screens/face_id_screen.dart';
 import 'package:mini_robo/shared/custom_blue.dart';
 import 'package:mini_robo/shared/custom_bottom_navigation.dart';
-import 'package:mini_robo/shared/custome_second_text.dart';
+import 'package:mini_robo/shared/custom_modes_buttons.dart';
+import 'package:mini_robo/shared/custom_second_text.dart';
 import 'package:mini_robo/shared/custom_title.dart';
 
 class CameraModesScreen extends StatefulWidget {
@@ -44,14 +46,14 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                 ],
               ),
 
-              const SizedBox(height: 174.0),
+              const SizedBox(height: 200.0),
 
               const SecondCustomeText(
                 text: 'Which mode do you \n  want to try today?',
                 fontSize: 29.0,
               ),
 
-              const SizedBox(height: 32.0),
+              const SizedBox(height: 80.0),
 
               Row(
                 children: [
@@ -63,21 +65,22 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                     font_color: Color(0xffEBEBEB),
                   ),
                   BlueCustom(
-                    text: "Detection",
+                    text: "Face ID",
                     fontSize: 22.0,
                     width: 120.0,
                     height: 60.0,
                     font_color: Color(0xffEBEBEB),
+                    navigateTo: FaceIDScreen(),
                   ),
                 ],
               ),
 
-              const SizedBox(height: 87.0),
+              const SizedBox(height: 25.0),
+              CustomModesButtons(text: "object"),
             ],
           ),
         ),
       ),
     );
-    ;
   }
 }
