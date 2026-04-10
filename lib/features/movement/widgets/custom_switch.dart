@@ -14,6 +14,7 @@ class SwitchCustom extends StatefulWidget {
 
 class _SwitchCustomState extends State<SwitchCustom> {
   bool inManualMode = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,7 +27,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
             });
           },
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 700),
+            duration: const Duration(milliseconds: 700),
             width: 250,
             height: 60,
             decoration: BoxDecoration(
@@ -46,9 +47,9 @@ class _SwitchCustomState extends State<SwitchCustom> {
               children: [
                 AnimatedAlign(
                   alignment: inManualMode
-                      ? AlignmentGeometry.bottomRight
-                      : AlignmentGeometry.bottomLeft,
-                  duration: Duration(milliseconds: 700),
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  duration: const Duration(milliseconds: 700),
                   child: Container(
                     padding: const EdgeInsets.all(1.0),
                     width: 150,
@@ -58,7 +59,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
                         BoxShadow(
                           color: Colors.black.withOpacity(0.2),
                           blurRadius: 5,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                       color: AppColors.primaryColor.withValues(alpha: 0.9),
@@ -78,46 +79,45 @@ class _SwitchCustomState extends State<SwitchCustom> {
           ),
         ),
 
-        SizedBox(height: 30),
+        const SizedBox(height: 30),
+
+        // عرض الـ Joystick في الحالة اليدوية، والأزرار في الحالة الأوتوماتيكية
         !inManualMode
             ? Joystick(
                 mode: JoystickMode.all,
                 listener: (details) {
-                  print(details);
-                  // sendMovementData(details.x, details.y);
+                  debugPrint("Joystick details: ${details.x}, ${details.y}");
                 },
-                base: Image(
+                base: const Image(
                   image: AssetImage("assets/images/Ellipse 4.png"),
                   width: 270,
                   fit: BoxFit.contain,
                 ),
-                stick: Image(
+                stick: const Image(
                   image: AssetImage("assets/images/Ellipse 6.png"),
                   width: 150,
                   fit: BoxFit.contain,
                 ),
               )
-            : Container(
-                child: Column(
-                  children: [
-                    Gap(20),
-                    CustomBtm(
-                      text: 'Forward',
-                      fontSize: 30,
-                      isimage: false,
-                      ccolor: AppColors.primaryColor,
-                      colorfont: AppColors.textColor2,
-                    ),
-                    Gap(20),
-                    CustomBtm(
-                      text: 'Backward',
-                      fontSize: 30,
-                      isimage: false,
-                      ccolor: AppColors.primaryColor,
-                      colorfont: AppColors.textColor2,
-                    ),
-                  ],
-                ),
+            : Column(
+                children: [
+                  const Gap(20),
+                  CustomBtm(
+                    text: 'Forward',
+                    fontSize: 30,
+                    isimage: false,
+                    ccolor: AppColors.primaryColor,
+                    colorfont: AppColors.textColor2,
+                  ),
+                  const Gap(20),
+                  CustomBtm(
+                    text: 'Backward',
+                    fontSize: 30,
+                    isimage: false,
+                    ccolor: AppColors.primaryColor,
+                    colorfont: AppColors.textColor2,
+                  ),
+                ],
               ),
       ],
     );

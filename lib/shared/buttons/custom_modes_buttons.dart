@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/shared/custom_second_text.dart';
+import 'package:mini_robo/shared/texts/custom_second_text.dart';
 
 class CustomModesButtons extends StatefulWidget {
   final String text;

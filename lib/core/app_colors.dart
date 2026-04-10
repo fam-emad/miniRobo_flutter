@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static Color primaryColor = Color(0xFF86B4E5);
-  static Color selectedColor = Color(0xFF86B4E5);
   static Color linearColor = Color(0xFF7EB7BE);
   static Color navBarColor = Color(0xFF86B4E5);
   static Color secondaryColor = Color(0xFFFFFFFF);
