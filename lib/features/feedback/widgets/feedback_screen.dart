@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_btm.dart';
+import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
-import 'package:mini_robo/shared/texts/custome_second_text.dart';
 
 class FeedbackScreen extends StatelessWidget {
   const FeedbackScreen({super.key});
@@ -18,7 +18,7 @@ class FeedbackScreen extends StatelessWidget {
             children: [
               CustomTitle(),
               Gap(100),
-              SecondCustomeText(
+              CustomText(
                 text: 'Which mode do you \n  want to try today?',
                 fontSize: 29.0,
               ),

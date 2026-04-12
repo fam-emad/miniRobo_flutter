@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/shared/texts/custom_second_text.dart';
+import 'package:mini_robo/shared/texts/custom_text.dart';
 
 class CustomModesButtons extends StatefulWidget {
   final String text;
@@ -45,7 +45,7 @@ class _CustomModesButtonsState extends State<CustomModesButtons> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [SecondCustomeText(text: widget.text, fontSize: 29)],
+              children: [CustomText(text: widget.text, fontSize: 29)],
             ),
           ),
         ),

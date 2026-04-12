@@ -1,79 +1,124 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
+import 'package:mini_robo/shared/texts/custom_text.dart';
 
-class CustomTextfild extends StatefulWidget {
-  const CustomTextfild({
+class CustomTextField extends StatefulWidget {
+  const CustomTextField({
     super.key,
-    required this.text,
-    required this.ispassword,
     required this.controller,
-    this.ccolor,
-    this.txtcolor,
+    this.hintText = '',
   });
-  final String text;
-  final bool ispassword;
+
   final TextEditingController controller;
-  final Color? ccolor;
-  final Color? txtcolor;
+  final String hintText;
+
   @override
-  State<CustomTextfild> createState() => _CustomTextfildState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _CustomTextfildState extends State<CustomTextfild> {
-  bool _obscureText = false;
-
-  void initstate() {
-    _obscureText = widget.ispassword;
-    super.initState();
-  }
-
-  void _tooglepassword() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
+class _CustomTextFieldState extends State<CustomTextField> {
+  String? errorText;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      cursorColor: AppColors.primaryColor,
-      cursorHeight: 20,
-      controller: widget.controller,
-      validator: (v) {
-        if (v == null || v.isEmpty) {
-          return 'please fill ${widget.text}';
-        }
-        null;
-        return null;
-      },
-      obscureText: _obscureText,
-      style: TextStyle(color: widget.txtcolor ?? Colors.white),
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-        suffixIcon: widget.ispassword
-            ? GestureDetector(
-                onTap: _tooglepassword,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          height: 70,
+          width: double.infinity,
 
-                child: Icon(
-                  CupertinoIcons.eye,
-                  color: widget.ccolor ?? Colors.white,
+          margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: errorText == null
+                  ? [
+                      Colors.black.withValues(alpha: 0.5),
+                      Colors.black.withValues(alpha: 0.2),
+                      Colors.black.withValues(alpha: 0.2),
+                      Colors.black.withValues(alpha: 0.1),
+                      Colors.black.withValues(alpha: 0.1),
+                    ]
+                  : [
+                      Colors.red.withValues(alpha: 0.5),
+                      Colors.red.withValues(alpha: 0.2),
+                      Colors.red.withValues(alpha: 0.2),
+                      Colors.red.withValues(alpha: 0.1),
+                      Colors.red.withValues(alpha: 0.1),
+                    ],
+            ),
+            borderRadius: BorderRadius.circular(50),
+          ),
+
+          child: Container(
+            margin: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(50),
+            ),
+
+            child: Center(
+              child: TextFormField(
+                controller: widget.controller,
+
+                cursorColor: AppColors.primaryColor,
+
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 20,
+                  color: AppColors.textColor,
                 ),
-              )
-            : null,
 
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: widget.ccolor ?? Colors.white),
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    setState(() {
+                      errorText = "Please enter some text";
+                    });
+                    return "";
+                  }
+                  setState(() {
+                    errorText = null;
+                  });
+                  return null;
+                },
+
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 20,
+                  ),
+
+                  fillColor: Colors.transparent,
+                  filled: true,
+
+                  enabled: true,
+
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
+                  errorStyle: const TextStyle(height: 0, fontSize: 0),
+                ),
+              ),
+            ),
+          ),
         ),
 
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: widget.ccolor ?? Colors.white),
-        ),
-        hintStyle: TextStyle(color: widget.ccolor ?? Colors.white),
-        hintText: widget.text,
-        fillColor: Colors.transparent,
-        filled: true,
-      ),
+        if (errorText != null)
+          Positioned(
+            bottom: -22,
+            left: 30,
+            child: CustomText(
+              text: errorText!,
+              fontSize: 18,
+              fontColor: Colors.red,
+            ),
+          ),
+      ],
     );
   }
 }

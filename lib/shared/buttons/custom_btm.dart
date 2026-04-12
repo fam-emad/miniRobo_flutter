@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/texts/custome_second_text.dart';
+import 'package:mini_robo/shared/texts/custom_text.dart';
 
 class CustomBtm extends StatelessWidget {
   const CustomBtm({
@@ -49,7 +49,7 @@ class CustomBtm extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SecondCustomeText(
+            CustomText(
               text: text,
               fontSize: fontSize,
               fontColor: AppColors.secondaryColor,
@@ -57,7 +57,7 @@ class CustomBtm extends StatelessWidget {
             Gap(8),
             isimage
                 ? Icon(
-                    icon ?? null,
+                    icon,
                     size: iconsize ?? 50,
                     color: iconcolor ?? AppColors.icons,
                   )

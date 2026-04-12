@@ -30,7 +30,7 @@ class _InformationState extends State<Information> {
                       CustomGlassBox(
                         icon: Icons.phone_iphone,
                         text: 'Flutter',
-                        font_color: Colors.black,
+                        fontColor: Colors.black,
                         backColor: AppColors.textColor2,
                         height: 162,
                         width: 180,
@@ -39,7 +39,7 @@ class _InformationState extends State<Information> {
                       CustomGlassBox(
                         icon: Icons.device_hub,
                         text: 'IOT',
-                        font_color: Colors.black,
+                        fontColor: Colors.black,
                         backColor: AppColors.primaryColor,
                         height: 162,
                         width: 180,
@@ -54,7 +54,7 @@ class _InformationState extends State<Information> {
                       CustomGlassBox(
                         icon: Icons.auto_awesome,
                         text: 'AI',
-                        font_color: Colors.black,
+                        fontColor: Colors.black,
                         backColor: AppColors.primaryColor,
                         height: 162,
                         width: 180,
@@ -65,7 +65,7 @@ class _InformationState extends State<Information> {
                       CustomGlassBox(
                         icon: Icons.movie_edit,
                         text: 'Media',
-                        font_color: Colors.black,
+                        fontColor: Colors.black,
                         backColor: AppColors.textColor2,
                         height: 162,
                         width: 180,
@@ -79,7 +79,7 @@ class _InformationState extends State<Information> {
                       CustomGlassBox(
                         icon: Icons.control_camera,
                         text: 'ROV',
-                        font_color: Colors.black,
+                        fontColor: Colors.black,
                         backColor: AppColors.textColor2,
                         height: 162,
                         width: 180,

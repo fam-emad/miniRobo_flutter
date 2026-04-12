@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/texts/custome_second_text.dart';
+import 'package:mini_robo/shared/texts/custom_text.dart';
 
 class ButtonCustom extends StatefulWidget {
   final String text;
@@ -64,7 +64,7 @@ class _ButtonCustomState extends State<ButtonCustom> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 
-                SecondCustomeText(text: widget.text, fontSize: widget.fontSize,fontColor: AppColors.primaryColor,),
+                CustomText(text: widget.text, fontSize: widget.fontSize,fontColor: AppColors.primaryColor,),
                 widget.isimage?
                 Image(
                   image: AssetImage("assets/images/Treble Clef.png"),

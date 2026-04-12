@@ -3,7 +3,7 @@ import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_btm.dart';
-import 'package:mini_robo/shared/texts/custome_second_text.dart';
+import 'package:mini_robo/shared/texts/custom_text.dart';
 
 class SwitchCustom extends StatefulWidget {
   const SwitchCustom({super.key});
@@ -57,7 +57,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                           blurRadius: 5,
                           offset: const Offset(0, 3),
                         ),
@@ -66,7 +66,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
                       borderRadius: BorderRadius.circular(27),
                     ),
                     child: Center(
-                      child: SecondCustomeText(
+                      child: CustomText(
                         text: inManualMode ? "Auto" : "Manual",
                         fontSize: 26,
                         isBlack: false,

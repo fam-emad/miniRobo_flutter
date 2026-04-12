@@ -19,11 +19,10 @@ class _MovementState extends State<Movement> {
           child: Column(
             children: [
               CustomTitle(),
-              
 
               SwitchCustom(),
-             // SizedBox(height: 300),
-               Spacer(),
+              // SizedBox(height: 300),
+              Spacer(),
               Row(
                 children: [
                   SizedBox(width: 10),

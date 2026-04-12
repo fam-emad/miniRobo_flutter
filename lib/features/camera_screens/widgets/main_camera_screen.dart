@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_modes_screen.dart';
-import 'package:mini_robo/shared/buttons/custom_blue.dart';
-import 'package:mini_robo/shared/texts/custome_second_text.dart';
+import 'package:mini_robo/shared/buttons/custom_blue_button.dart';
+import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
 class Camera extends StatelessWidget {
@@ -19,19 +20,27 @@ class Camera extends StatelessWidget {
 
               const SizedBox(height: 174.0),
 
-              const SecondCustomeText(
+              const CustomText(
                 text: '   Would you like to make \nmini robot remember you?',
                 fontSize: 29.0,
               ),
 
               const SizedBox(height: 32.0),
 
-              BlueCustom(
-                text: "Yes, I want to be remembered",
-                fontSize: 29.0,
-                width: 358.0,
-                height: 90.0,
-                font_color: Color(0xffEBEBEB),
+              Center(
+                child: BlueCustom(
+                  text: "Yes, let's do it",
+                  fontSize: 32.0,
+                  width: 358.0,
+                  height: 90.0,
+                  fontColor: Color(0xffEBEBEB),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FaceIDScreen(),
+                    ),
+                  ),
+                ),
               ),
 
               const SizedBox(height: 87.0),
@@ -45,7 +54,7 @@ class Camera extends StatelessWidget {
                     ),
                   );
                 },
-                child: const SecondCustomeText(
+                child: const CustomText(
                   text: '               no thanks,\nJust open Robot camera',
                   fontSize: 26.0,
                 ),

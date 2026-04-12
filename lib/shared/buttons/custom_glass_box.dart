@@ -7,13 +7,13 @@ class CustomGlassBox extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color? backColor;
-   final Color? font_color;
+   final Color? fontColor;
      final double? height;
      final double? width;
      final double? iconsize;
    final Color? iconcolor;
 
-  const CustomGlassBox({super.key, required this.text, required this.icon, this.backColor, this.font_color, this.height, this.width, this.iconcolor, this.iconsize});
+  const CustomGlassBox({super.key, required this.text, required this.icon, this.backColor, this.fontColor, this.height, this.width, this.iconcolor, this.iconsize});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class CustomGlassBox extends StatelessWidget {
                     fontFamily: 'inter',
                     fontWeight: FontWeight.w900,
                     fontSize: 23,
-                    color: font_color?? AppColors.textColor2,
+                    color: fontColor ?? AppColors.textColor2,
                     shadows: [
                       Shadow(
                         color: Color.fromARGB(209, 154, 154, 154),
