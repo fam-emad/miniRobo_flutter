@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mini_robo/shared/buttons/custom_bottom_navigation.dart';
+import 'package:mini_robo/shared/buttons/custom_navigation_bottom.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

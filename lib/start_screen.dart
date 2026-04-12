@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/buttons/custom_bottom_navigation.dart';
+import 'package:mini_robo/shared/buttons/custom_navigation_bottom.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 
 class Start extends StatelessWidget {
@@ -22,10 +22,10 @@ class Start extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/robot_happy.png'),
-            ButtonCustom(
+            CustomButton(
               text: 'let’s go',
               fontSize: 32,
-              isimage: false,
+              isImage: false,
               backColor: AppColors.secondaryColor,
               onTap: () {
                 Navigator.push(
@@ -35,6 +35,8 @@ class Start extends StatelessWidget {
                   ),
                 );
               },
+              width: 310,
+              height: 100,
             ),
           ],
         ),

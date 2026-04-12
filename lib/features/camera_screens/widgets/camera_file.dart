@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/buttons/custom_blue_button.dart';
+import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_textfield.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
@@ -105,7 +105,7 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     //camera button
-                    BlueCustom(
+                    CustomButton(
                       text: "Camera",
                       fontSize: 24,
                       width: 160,
@@ -115,7 +115,7 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
 
                     SizedBox(width: 2.0),
                     //gallery button
-                    BlueCustom(
+                    CustomButton(
                       text: "Gallery",
                       fontSize: 24,
                       width: 170,
@@ -128,7 +128,7 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
                 SizedBox(height: 40.0),
 
                 //name input
-                BlueCustom(
+                CustomButton(
                   text: "Please Enter Your First Name",
                   fontSize: 22.0,
                   width: 370,
@@ -151,7 +151,7 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
 
                     Expanded(
                       flex: 1,
-                      child: BlueCustom(
+                      child: CustomButton(
                         text: "Done",
                         fontSize: 22.0,
                         width: 40,

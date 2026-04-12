@@ -4,7 +4,6 @@ import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
-
 class Information extends StatefulWidget {
   const Information({super.key});
 
@@ -87,11 +86,9 @@ class _InformationState extends State<Information> {
                       ),
                     ],
                   ),
-                  //Gap(100)
                 ],
               ),
               Positioned(
-                // left: 20,
                 bottom: -5,
                 right: 0,
                 child: Image(

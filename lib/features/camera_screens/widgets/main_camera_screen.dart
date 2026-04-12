@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_modes_screen.dart';
-import 'package:mini_robo/shared/buttons/custom_blue_button.dart';
+import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
@@ -28,7 +28,7 @@ class Camera extends StatelessWidget {
               const SizedBox(height: 32.0),
 
               Center(
-                child: BlueCustom(
+                child: CustomButton(
                   text: "Yes, let's do it",
                   fontSize: 32.0,
                   width: 358.0,

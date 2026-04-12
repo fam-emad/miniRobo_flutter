@@ -1,79 +1,89 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 
-class ButtonCustom extends StatefulWidget {
+class CustomButton extends StatefulWidget {
   final String text;
   final double fontSize;
-  final IconData ?icon;
-  final bool isSelected;
-  final bool isimage;
+  final double width;
+  final double height;
+  final Color? fontColor;
   final Color? backColor;
-   final Function()? onTap;
-  
-  
-  const ButtonCustom({
+  final VoidCallback onTap;
+  final bool isActive;
+  final bool? isImage;
+  final IconData? icon;
+  final double? iconsize;
+  final Color? iconcolor;
+  const CustomButton({
     super.key,
     required this.text,
     required this.fontSize,
-      this.icon,
-    this.isSelected = false, required this.isimage, this.backColor, this.onTap, 
-
+    this.backColor,
+    required this.width,
+    required this.height,
+    this.fontColor,
+    this.isImage = false,
+    required this.onTap,
+    this.isActive = false,
+    this.icon,
+    this.iconsize,    
+    this.iconcolor,
   });
 
   @override
-  State<ButtonCustom> createState() => _ButtonCustomState();
+  State<CustomButton> createState() => _CustomButtonState();
 }
 
-class _ButtonCustomState extends State<ButtonCustom> {
+class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap:widget.onTap,
-      child: ClipRRect(
-        borderRadius: BorderRadiusGeometry.circular(40),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 10),
-          child: Container(
-            padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-            width: 350,
-            height: 97,
-            decoration: BoxDecoration(
-              ////
-               gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [Color(0xFFFFFFFF), Color(0xFF86B4E5)],
-            ),
-              //color:widget.backColor?? AppColors.textColor2.withValues(alpha: 0.8),
-              borderRadius: BorderRadiusGeometry.circular(40),
-              border: Border.all(
-                color: AppColors.textColor2.withValues(alpha: 1),
-                width: 1.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(114, 120,120, 120).withValues(alpha: 0.5),
-                  blurRadius: 150,
-                  offset: Offset(0, 5),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                
-                CustomText(text: widget.text, fontSize: widget.fontSize,fontColor: AppColors.primaryColor,),
-                widget.isimage?
-                Image(
-                  image: AssetImage("assets/images/Treble Clef.png"),
-                  width: 48,
-                  fit: BoxFit.contain,
-                ): SizedBox.shrink(),
-              ],
-            ),
+    return Container(
+      width: widget.width,
+      height: widget.height,
+      decoration: BoxDecoration(
+        color:
+            widget.backColor ??
+            (widget.isActive
+                ? AppColors.primaryColor.withValues(alpha: 0.45)
+                : AppColors.primaryColor),
+
+        borderRadius: BorderRadiusGeometry.circular(50),
+        border: Border.all(
+          color: widget.isActive
+              ? AppColors.primaryColor.withValues(alpha: 0.45)
+              : AppColors.primaryColor,
+          width: 1.5,
+        ),
+
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromARGB(114, 120, 120, 120).withValues(alpha: 0.2),
+            blurRadius: 100,
+            offset: Offset(0, 5),
           ),
+        ],
+      ),
+
+      child: InkWell(
+        onTap: widget.onTap,
+        borderRadius: BorderRadius.circular(50),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomText(
+              text: widget.text,
+              fontSize: widget.fontSize,
+              fontColor: widget.fontColor ?? AppColors.textColor2,
+            ),
+            widget.isImage ?? true
+                ? Image(
+                    image: AssetImage("assets/images/Treble Clef.png"),
+                    width: 48,
+                    fit: BoxFit.contain,
+                  )
+                : SizedBox.shrink(),
+          ],
         ),
       ),
     );

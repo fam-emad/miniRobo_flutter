@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/buttons/custom_btm.dart';
+import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 
 class SwitchCustom extends StatefulWidget {
@@ -102,20 +102,26 @@ class _SwitchCustomState extends State<SwitchCustom> {
             : Column(
                 children: [
                   const Gap(20),
-                  CustomBtm(
+                  CustomButton(
                     text: 'Forward',
                     fontSize: 30,
-                    isimage: false,
-                    ccolor: AppColors.primaryColor,
-                    colorfont: AppColors.textColor2,
+                    isImage: false,
+                    backColor: AppColors.primaryColor,
+                    fontColor: AppColors.textColor2,
+                    width: 300,
+                    height: 100,
+                    onTap: () {},
                   ),
                   const Gap(20),
-                  CustomBtm(
+                  CustomButton(
                     text: 'Backward',
                     fontSize: 30,
-                    isimage: false,
-                    ccolor: AppColors.primaryColor,
-                    colorfont: AppColors.textColor2,
+                    isImage: false,
+                    backColor: AppColors.primaryColor,
+                    fontColor: AppColors.textColor2,
+                    width: 300,
+                    height: 100,
+                    onTap: () {},
                   ),
                 ],
               ),

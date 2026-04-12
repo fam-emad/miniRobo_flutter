@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
-import 'package:mini_robo/shared/buttons/custom_blue_button.dart';
+import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/buttons/custom_modes_buttons.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
@@ -68,7 +68,7 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BlueCustom(
+                CustomButton(
                   text: "Face ID",
                   fontSize: 22.0,
                   width: 120.0,
@@ -82,7 +82,7 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                   ),
                 ),
 
-                BlueCustom(
+                CustomButton(
                   text: "Detection",
                   fontSize: 22.0,
                   width: 120.0,
@@ -94,7 +94,7 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                   },
                 ),
 
-                BlueCustom(
+                CustomButton(
                   text: "Greeting",
                   fontSize: 22.0,
                   width: 120.0,

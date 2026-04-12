@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
-import 'package:mini_robo/shared/buttons/custom_btm.dart';
+import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
@@ -24,43 +24,46 @@ class FeedbackScreen extends StatelessWidget {
               ),
 
               Gap(50),
-              CustomBtm(
+              CustomButton(
                 text: 'Perfect',
                 fontSize: 30,
-                ccolor: AppColors.primaryColor,
-                isimage: true,
-                colorfont: AppColors.textColor2,
+                backColor: AppColors.primaryColor,
+                isImage: true,
+                fontColor: AppColors.textColor2,
                 width: 350,
                 height: 70,
                 icon: Icons.star_rate,
                 iconsize: 50,
                 iconcolor: AppColors.icons,
+                onTap: () {},
               ),
               Gap(30),
-               CustomBtm(
+              CustomButton(
                 text: 'Good',
                 fontSize: 30,
-                ccolor: AppColors.primaryColor,
-                isimage: true,
-                colorfont: AppColors.textColor2,
+                backColor: AppColors.primaryColor,
+                isImage: true,
+                fontColor: AppColors.textColor2,
                 width: 350,
                 height: 70,
                 icon: Icons.thumb_up,
                 iconsize: 50,
                 iconcolor: AppColors.icons,
+                onTap: () {},
               ),
               Gap(30),
-               CustomBtm(
+              CustomButton(
                 text: 'Need Enhancement',
                 fontSize: 30,
-                ccolor: AppColors.primaryColor,
-                isimage: false,
-                colorfont: AppColors.textColor2,
+                backColor: AppColors.primaryColor,
+                isImage: false,
+                fontColor: AppColors.textColor2,
                 width: 350,
                 height: 70,
                 icon: Icons.phone_iphone,
                 iconsize: 50,
                 iconcolor: AppColors.icons,
+                onTap: () {},
               ),
             ],
           ),
