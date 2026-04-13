@@ -15,6 +15,7 @@ class CustomButton extends StatefulWidget {
   final IconData? icon;
   final double? iconsize;
   final Color? iconcolor;
+  final bool? forAutomatic;
   const CustomButton({
     super.key,
     required this.text,
@@ -27,8 +28,9 @@ class CustomButton extends StatefulWidget {
     required this.onTap,
     this.isActive = false,
     this.icon,
-    this.iconsize,    
+    this.iconsize,
     this.iconcolor,
+    this.forAutomatic,
   });
 
   @override
@@ -48,11 +50,13 @@ class _CustomButtonState extends State<CustomButton> {
                 ? AppColors.primaryColor.withValues(alpha: 0.45)
                 : AppColors.primaryColor),
 
-        borderRadius: BorderRadiusGeometry.circular(50),
+        borderRadius: widget.forAutomatic == true
+            ? BorderRadiusGeometry.circular(20)
+            : BorderRadiusGeometry.circular(50),
         border: Border.all(
           color: widget.isActive
               ? AppColors.primaryColor.withValues(alpha: 0.45)
-              : AppColors.primaryColor,
+              : Colors.white.withValues(alpha: 0.3),
           width: 1.5,
         ),
 
@@ -67,14 +71,20 @@ class _CustomButtonState extends State<CustomButton> {
 
       child: InkWell(
         onTap: widget.onTap,
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: widget.forAutomatic == true
+            ? BorderRadius.circular(20)
+            : BorderRadius.circular(50),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomText(
               text: widget.text,
               fontSize: widget.fontSize,
-              fontColor: widget.fontColor ?? AppColors.textColor2,
+              fontColor:
+                  widget.fontColor ??
+                  (widget.isActive
+                      ? AppColors.textColor
+                      : AppColors.textColor2),
             ),
             widget.isImage ?? true
                 ? Image(

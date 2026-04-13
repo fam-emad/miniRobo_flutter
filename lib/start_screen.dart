@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_navigation_bottom.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
+import 'package:mini_robo/shared/ovalGradient.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});
@@ -9,13 +10,20 @@ class Start extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //  backgroundColor: Colors.blueAccent,
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [Color(0xFFFFFFFF), Color(0xFFB3D1F2), Color(0xFF86B4E5)],
+          gradient: RadialGradient(
+            // begin: Alignment.bottomCenter,
+            // end: Alignment.topCenter,
+            radius: 1.2,
+            colors: [
+              Color(0xFF86B4E5),
+              Color(0xFFB3D1F2),
+              Color(0xFFB3D1F2).withValues(alpha: 0.5),
+              Color(0xFFB3D1F2).withValues(alpha: 0.1),
+              Color(0xFFB3D1F2).withValues(alpha: 0.0),
+            ],
+            transform: const OvalGradientTransform(0.6, 1),
           ),
         ),
         child: Column(
@@ -26,7 +34,8 @@ class Start extends StatelessWidget {
               text: 'let’s go',
               fontSize: 32,
               isImage: false,
-              backColor: AppColors.secondaryColor,
+              fontColor: AppColors.textColor2,
+              backColor: AppColors.primaryColor,
               onTap: () {
                 Navigator.push(
                   context,

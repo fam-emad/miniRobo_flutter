@@ -70,6 +70,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
                         text: inManualMode ? "Auto" : "Manual",
                         fontSize: 26,
                         isBlack: false,
+                        fontColor: AppColors.textColor2,
                       ),
                     ),
                   ),
@@ -81,7 +82,6 @@ class _SwitchCustomState extends State<SwitchCustom> {
 
         const SizedBox(height: 30),
 
-        // عرض الـ Joystick في الحالة اليدوية، والأزرار في الحالة الأوتوماتيكية
         !inManualMode
             ? Joystick(
                 mode: JoystickMode.all,
@@ -110,6 +110,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
                     fontColor: AppColors.textColor2,
                     width: 300,
                     height: 100,
+                    forAutomatic: true,
                     onTap: () {},
                   ),
                   const Gap(20),
@@ -121,6 +122,7 @@ class _SwitchCustomState extends State<SwitchCustom> {
                     fontColor: AppColors.textColor2,
                     width: 300,
                     height: 100,
+                    forAutomatic: true,
                     onTap: () {},
                   ),
                 ],

@@ -87,7 +87,6 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                   fontSize: 22.0,
                   width: 120.0,
                   height: 60.0,
-                  fontColor: const Color(0xffEBEBEB),
                   isActive: myMode == "Object",
                   onTap: () {
                     _activeRobotMode("Object");
@@ -99,7 +98,6 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                   fontSize: 22.0,
                   width: 120.0,
                   height: 60.0,
-                  fontColor: const Color(0xffEBEBEB),
                   isActive: myMode == "Greeting",
                   onTap: () {
                     _activeRobotMode("Greeting");

@@ -80,14 +80,14 @@ class Home extends StatelessWidget {
             SizedBox(height: 50),
 
             CustomTitle(),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
 
             CustomButton(
               text: 'Start the party',
               fontSize: 26,
               fontColor: AppColors.textColor,
-              width: 310,
-              height: 100,
+              width: 350,
+              height: 120,
               isImage: true,
               onTap: () {},
               backColor: AppColors.textColor2,
