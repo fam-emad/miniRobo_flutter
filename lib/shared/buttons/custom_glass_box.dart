@@ -11,6 +11,8 @@ class CustomGlassBox extends StatelessWidget {
   final Color? fontColor;
   final double? height;
   final double? width;
+  final double? fontSize;
+  final double? radius;
   final double? iconsize;
   final Color? iconcolor;
 
@@ -23,7 +25,7 @@ class CustomGlassBox extends StatelessWidget {
     this.height,
     this.width,
     this.iconcolor,
-    this.iconsize,
+    this.iconsize, this.radius, this.fontSize,
   });
 
   @override
@@ -43,7 +45,7 @@ class CustomGlassBox extends StatelessWidget {
 
             decoration: BoxDecoration(
               color: backColor ?? Colors.white.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(40),
+              borderRadius: BorderRadius.circular(radius??40),
               border: Border.all(
                 color: Colors.white.withValues(alpha: 0.3),
                 width: 1.5,
@@ -65,10 +67,10 @@ class CustomGlassBox extends StatelessWidget {
                   size: iconsize ?? 50,
                   color: iconcolor ?? AppColors.icons,
                 ),
-                Gap(5),
+               // Gap(5),
                 CustomText(
                   text: text,
-                  fontSize: 24,
+                  fontSize:fontSize?? 24,
                   fontColor: fontColor ?? AppColors.textColor2,
                 ),
               ],

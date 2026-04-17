@@ -3,6 +3,7 @@ import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
+import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 
 class SwitchCustom extends StatefulWidget {
@@ -18,7 +19,8 @@ class _SwitchCustomState extends State<SwitchCustom> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
+
+     // mainAxisSize: MainAxisSize.max,
       children: [
         GestureDetector(
           onTap: () {
@@ -80,10 +82,120 @@ class _SwitchCustomState extends State<SwitchCustom> {
           ),
         ),
 
-        const SizedBox(height: 30),
+        const SizedBox(height: 50),
 
         !inManualMode
-            ? Joystick(
+            ? 
+             Row(
+               children: [
+                  Column(children: [ CustomGlassBox(
+                        icon: Icons.keyboard_arrow_up,
+                        text: 'UP',
+                        fontColor: Colors.black,
+                        backColor: AppColors.textColor2,
+                        height: 100,
+                        width: 110,
+                        iconsize: 40,
+                        iconcolor: AppColors.primaryColor,
+                        radius: 10,
+                        fontSize: 15,
+                      ),
+                       CustomGlassBox(
+                        icon: Icons.keyboard_arrow_down,
+                        text: 'DWN',
+                        fontColor: Colors.black,
+                        backColor: AppColors.textColor2,
+                        height: 100,
+                        width: 110,
+                        iconsize: 40,
+                        iconcolor: AppColors.primaryColor,
+                        radius: 10,
+                        fontSize: 15,
+                        )],),
+              
+                Column(
+                  children: [
+                          CustomGlassBox(
+                        icon: Icons.keyboard_double_arrow_up,
+                        text: 'FWD',
+                        fontColor: Colors.black,
+                        backColor: AppColors.primaryColor,
+                        height: 130,
+                        width: 110,
+                        iconsize: 40,
+                        iconcolor: AppColors.secondaryColor,
+                        radius: 10,
+                        fontSize: 17,
+                      ),
+                       CustomGlassBox(
+                        icon: Icons.keyboard_double_arrow_down,
+                        text: 'BWD',
+                        fontColor: Colors.black,
+                        backColor: AppColors.primaryColor,
+                        height: 130,
+                        width: 110,
+                        iconsize: 40,
+                        iconcolor: AppColors.secondaryColor,
+                        radius: 10,
+                        fontSize: 17,
+                      ),
+                  ],
+                ),
+                 Column(
+                    children: [
+                      
+                      
+                       CustomGlassBox(
+                        icon: Icons.keyboard_arrow_up,
+                        text: 'UP',
+                        fontColor: Colors.black,
+                        backColor: AppColors.textColor2,
+                        height: 100,
+                        width: 110,
+                        iconsize: 40,
+                        iconcolor: AppColors.primaryColor,
+                        radius: 10,
+                        fontSize: 15,
+                      ),
+                       CustomGlassBox(
+                        icon: Icons.keyboard_arrow_down,
+                        text: 'DWN',
+                        fontColor: Colors.black,
+                        backColor: AppColors.textColor2,
+                        height: 100,
+                        width: 110,
+                        iconsize: 40,
+                        iconcolor: AppColors.primaryColor,
+                        radius: 10,
+                        fontSize: 15,
+                      ),
+                      // CustomButton(
+                      //   text: 'Forward',
+                      //   fontSize: 30,
+                      //   isImage: true,
+                      //   backColor: AppColors.primaryColor,
+                      //   fontColor: AppColors.textColor2,
+                      //   width: 300,
+                      //   height: 100,
+                      //   forAutomatic: true,
+                      //   onTap: () {},
+                      // ),
+                      // const Gap(20),
+                      // CustomButton(
+                      //   text: 'Backward',
+                      //   fontSize: 30,
+                      //   isImage: false,
+                      //   backColor: AppColors.primaryColor,
+                      //   fontColor: AppColors.textColor2,
+                      //   width: 300,
+                      //   height: 100,
+                      //   forAutomatic: true,
+                      //   onTap: () {},
+                      // ),
+                    ],
+                  ),
+               ],
+             ):Joystick(
                 mode: JoystickMode.all,
                 listener: (details) {
                   debugPrint("Joystick details: ${details.x}, ${details.y}");
@@ -99,34 +211,6 @@ class _SwitchCustomState extends State<SwitchCustom> {
                   fit: BoxFit.contain,
                 ),
               )
-            : Column(
-                children: [
-                  const Gap(20),
-                  CustomButton(
-                    text: 'Forward',
-                    fontSize: 30,
-                    isImage: false,
-                    backColor: AppColors.primaryColor,
-                    fontColor: AppColors.textColor2,
-                    width: 300,
-                    height: 100,
-                    forAutomatic: true,
-                    onTap: () {},
-                  ),
-                  const Gap(20),
-                  CustomButton(
-                    text: 'Backward',
-                    fontSize: 30,
-                    isImage: false,
-                    backColor: AppColors.primaryColor,
-                    fontColor: AppColors.textColor2,
-                    width: 300,
-                    height: 100,
-                    forAutomatic: true,
-                    onTap: () {},
-                  ),
-                ],
-              ),
       ],
     );
   }

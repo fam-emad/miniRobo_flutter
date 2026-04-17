@@ -15,7 +15,7 @@ class _MovementState extends State<Movement> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 60.0, 0.0, 0),
+          padding: const EdgeInsets.fromLTRB(0.0, 60.0, 0.0, 0),
           child: Column(
             children: [
               CustomTitle(),
@@ -28,7 +28,7 @@ class _MovementState extends State<Movement> {
                   SizedBox(width: 10),
                   Image(
                     image: AssetImage("assets/images/robot_walk.png"),
-                    height: 270,
+                    height: 210,
                     fit: BoxFit.contain,
                   ),
                 ],
