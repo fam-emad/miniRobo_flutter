@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:mini_robo/core/app_colors.dart'; 
+import 'package:mini_robo/core/utils/app_colors.dart'; 
 
 class CustomBtm extends StatelessWidget {
   const CustomBtm({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/core/app_colors.dart';
+import 'package:mini_robo/core/utils/app_colors.dart';
 
 class CustomText extends StatelessWidget {
   final String text;

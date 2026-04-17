@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mini_robo/core/app_colors.dart';
+import 'package:mini_robo/core/utils/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
