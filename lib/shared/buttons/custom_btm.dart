@@ -56,7 +56,7 @@ class CustomBtm extends StatelessWidget {
             Gap(8),
             isimage
                 ? Icon(
-                    icon ?? null,
+                    icon,
                     size: iconsize ?? 50,
                     color: iconcolor ?? AppColors.icons,
                   )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mini_robo/start_screen.dart';
+import 'package:mini_robo/shared/buttons/custom_navigation_bottom.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: Start(),
+      home: BottomNavigationCustom(),
     );
   }
 }
