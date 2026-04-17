@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/networking/api_service.dart';
 import 'package:mini_robo/features/camera_screens/data/repos/camera_repo.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/states.dart';
+import 'package:mini_robo/features/camera_screens/logic/cubit/camera_states.dart';
 
 class CameraCubit extends Cubit<CameraState> {
   final CameraRepo cameraRepository;

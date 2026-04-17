@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
+import 'package:mini_robo/features/home/logic/cubit/movement_cubit.dart';
+import 'package:mini_robo/features/home/logic/cubit/movement_states.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
@@ -10,93 +13,111 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.primaryColor,
-              AppColors.primaryColor,
-              AppColors.secondaryColor,
-              AppColors.secondaryColor,
-            ],
-          ),
-        ),
-        child: Column(
-          children: [
-            SizedBox(height: 30),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    CustomGlassBox(icon: Icons.flash_on, text: 'Battery'),
-
-                    Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(21.0, 15, 0.0, 0),
-                          width: 141,
-                          height: 126,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.7),
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.3),
-                              width: 1.5,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.05),
-                                blurRadius: 10,
-                                spreadRadius: 2,
-                              ),
-                            ],
-                          ),
-                        ),
-                        CustomGlassBox(
-                          icon: Icons.energy_savings_leaf,
-                          text: 'Power',
-                          fontColor: AppColors.primaryColor,
-                          iconcolor: Colors.green,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                Expanded(
-                  flex: 2,
-                  child: Image(
-                    image: AssetImage('assets/images/robot_idle.png'),
-                    height: 270,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return BlocListener<MovementCubit, MovementState>(
+      listener: (context, state) {
+        if (state is MovementSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else if (state is MovementError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+          );
+        }
+      },
+      child: Scaffold(
+        body: Container(
+          padding: const EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.primaryColor,
+                AppColors.primaryColor,
+                AppColors.secondaryColor,
+                AppColors.secondaryColor,
               ],
             ),
-            SizedBox(height: 50),
+          ),
+          child: Column(
+            children: [
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      CustomGlassBox(icon: Icons.flash_on, text: 'Battery'),
 
-            CustomTitle(),
-            SizedBox(height: 15),
+                      Stack(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(21.0, 15, 0.0, 0),
+                            width: 141,
+                            height: 126,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.7),
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.3),
+                                width: 1.5,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.05),
+                                  blurRadius: 10,
+                                  spreadRadius: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                          CustomGlassBox(
+                            icon: Icons.energy_savings_leaf,
+                            text: 'Power',
+                            fontColor: AppColors.primaryColor,
+                            iconcolor: Colors.green,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
 
-            CustomButton(
-              text: 'Start the party',
-              fontSize: 26,
-              fontColor: AppColors.textColor,
-              width: 350,
-              height: 120,
-              isImage: true,
-              onTap: () {},
-              backColor: AppColors.textColor2,
-            ),
+                  Expanded(
+                    flex: 2,
+                    child: Image(
+                      image: AssetImage('assets/images/robot_idle.png'),
+                      height: 270,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 50),
 
-            Spacer(),
-            CustomText(text: "Let’s explore more with", fontSize: 25),
-            CustomText(text: "Chief Smile Officer", fontSize: 25),
-          ],
+              CustomTitle(),
+              SizedBox(height: 15),
+
+              CustomButton(
+                text: 'Start the party',
+                fontSize: 26,
+                fontColor: AppColors.textColor,
+                width: 350,
+                height: 120,
+                isImage: true,
+                onTap: () {
+                  context.read<MovementCubit>().startDanceParty();
+                },
+                backColor: AppColors.textColor2,
+              ),
+
+              Spacer(),
+              CustomText(text: "Let’s explore more with", fontSize: 25),
+              CustomText(text: "Chief Smile Officer", fontSize: 25),
+            ],
+          ),
         ),
       ),
     );

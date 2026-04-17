@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/cubit.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/states.dart';
+import 'package:mini_robo/features/camera_screens/logic/cubit/camera_cubit.dart';
+import 'package:mini_robo/features/camera_screens/logic/cubit/camera_states.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/buttons/custom_modes_buttons.dart';
