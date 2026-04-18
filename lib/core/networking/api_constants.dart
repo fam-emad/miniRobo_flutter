@@ -1,14 +1,14 @@
 class ApiConstants {
   // --- AI Server (Laptop) ---
-  static const String aiBaseUrl = "http://192.168.1.64:8000/flutter";
+  static const String aiServerIp = "192.168.137.1";
+  static const String aiBaseUrl = "http://$aiServerIp:8000/flutter";
 
   // --- Robot (ESP32-CAM) ---
-  static const String robotIp = "http://192.168.1.100";
+  static const String robotIp = "http://$aiServerIp.100";
 
-  static const String socketUrl = "ws://192.168.1.100:81";
+  static const String socketUrl = "ws://$aiServerIp.100:81";
 
   // --- Endpoints ---
-  static const String robotPhoto = "$robotIp/photo";
   static const String robotGreet = "$robotIp/greet";
   static const String robotDance = "$robotIp/dance";
 

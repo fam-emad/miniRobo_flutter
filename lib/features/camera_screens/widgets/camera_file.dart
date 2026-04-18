@@ -61,7 +61,6 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          // resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 0),

@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-
+import 'package:mini_robo/features/camera_screens/data/models/ai_response.dart';
 import '../../../../core/networking/api_service.dart';
 
 class CameraRepo {
@@ -27,44 +26,25 @@ class CameraRepo {
 
     final response = await apiService.sendAiRequest(
       mode: 'R',
-      body: {'user_name': name, 'image': base64Image},
+      body: {'name': name, 'image': base64Image},
     );
 
     return response.statusCode == 200;
   }
 
-  Future<String?> getDetectedName() async {
+  Future<String?> getDetectedName(String mode) async {
     try {
-      final response = await apiService.sendAiRequest(mode: "F");
+      final response = await apiService.sendAiRequest(mode: mode);
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);
 
-        return data['user_name'];
+        return data['name'];
       } else {
         return "Unknown";
       }
     } catch (e) {
       rethrow;
-    }
-  }
-
-
-  Future<String?> recognizeFromImage(String base64Image) async {
-    try {
-      final response = await apiService.sendAiRequest(
-        mode: 'F',
-        body: {'image': base64Image},
-      );
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = jsonDecode(response.body);
-        return data['user_name'];
-      }
-      return "Unknown";
-    } catch (e) {
-      debugPrint("Recognition Error: $e");
-      return null;
     }
   }
 
@@ -74,6 +54,20 @@ class CameraRepo {
       return response.statusCode == 200;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<AiResponse?> getDetectedResult(String mode) async {
+    try {
+      final response = await apiService.sendAiRequest(mode: mode);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        return AiResponse.fromJson(data);
+      }
+      return null;
+    } catch (e) {
+      rethrow;
     }
   }
 }

@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/networking/api_service.dart';
+import 'package:mini_robo/features/camera_screens/data/models/ai_response.dart';
 import 'package:mini_robo/features/camera_screens/data/repos/camera_repo.dart';
 import 'package:mini_robo/features/camera_screens/logic/cubit/camera_states.dart';
 
@@ -59,40 +58,34 @@ class CameraCubit extends Cubit<CameraState> {
     emit(CameraLoadingState());
 
     try {
-      final String? detectedName = await cameraRepository.getDetectedName();
+      final AiResponse? result = await cameraRepository.getDetectedResult("F");
 
-      if (detectedName != null && detectedName != "Unknown") {
-        emit(CameraSuccessState("Hello, $detectedName! 😊"));
+      if (result != null && result.status == "success") {
+        String name = result.userName ?? "Guest";
+        emit(CameraSuccessState("Hello, $name! 😊"));
+      } else {
+        emit(CameraSuccessState("Scanning... Please face the robot camera."));
+      }
+    } catch (e) {
+      emit(CameraErrorState("Network error: ${e.toString()}"));
+    }
+  }
+
+  Future<void> startAutoGreeting() async {
+    emit(CameraLoadingState());
+
+    try {
+      final String? name = await cameraRepository.getDetectedName("F");
+
+      if (name != null && name != "Unknown") {
+        emit(CameraSuccessState("Hello, $name! 😊"));
+
+        await apiService.sendRobotCommand(ApiConstants.robotGreet);
       } else {
         emit(CameraSuccessState("Welcome! Happy to see you. ✨"));
       }
     } catch (e) {
-      emit(CameraErrorState("فشل الاتصال: تأكد من تشغيل السيرفر والشبكة"));
-    }
-  }
-
-  // داخل CameraCubit
-  Future<void> startAutoGreeting() async {
-    emit(CameraLoadingState());
-
-    final Uint8List? imageBytes = await apiService.captureFromRobot();
-
-    if (imageBytes != null) {
-      String base64Image = base64Encode(imageBytes);
-
-      final String? name = await cameraRepository.recognizeFromImage(
-        base64Image,
-      );
-
-      if (name != null && name != "Unknown") {
-        emit(CameraSuccessState("Hello, $name!"));
-
-        await apiService.sendRobotCommand(ApiConstants.robotGreet);
-      } else {
-        emit(CameraSuccessState("Welcome!"));
-      }
-    } else {
-      emit(CameraErrorState("Could not connect to Robot Camera"));
+      emit(CameraErrorState("Connection Error: ${e.toString()}"));
     }
   }
 }

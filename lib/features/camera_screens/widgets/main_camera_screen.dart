@@ -58,7 +58,7 @@ class Camera extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BlocProvider(
-                        create: (context) {
+                        create: (context) { 
                           final apiService = ApiService();
                           return CameraCubit(
                             CameraRepo(apiService),
