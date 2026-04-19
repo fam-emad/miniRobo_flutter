@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_joystick/flutter_joystick.dart';
+import 'package:mini_robo/core/networking/api_constants.dart';
+import 'package:mini_robo/core/networking/socket_service.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
-import 'package:mini_robo/shared/texts/custom_text.dart';
 
 class SwitchCustom extends StatefulWidget {
   const SwitchCustom({super.key});
@@ -13,203 +13,133 @@ class SwitchCustom extends StatefulWidget {
 
 class _SwitchCustomState extends State<SwitchCustom> {
   bool inManualMode = false;
+  final SocketService socketService = SocketService();
+
+  @override
+  void initState() {
+    socketService.connect("ws://${ApiConstants.aiServerIp}.100:81");
+    return super.initState();
+  }
+
+  @override
+  void dispose() {
+    socketService.disconnect();
+    super.dispose();
+  }
+
+  Widget _buildMovementBtn({
+    required IconData icon,
+    required String label,
+    required String command,
+    required Color backColor,
+    double height = 100,
+    double fontSize = 15,
+    Color? iconColor,
+  }) {
+    return GestureDetector(
+      onTapDown: (_) => _send(command), 
+      onTapUp: (_) => _send('S'), 
+      onTapCancel: () => _send('S'), 
+      child: CustomGlassBox(
+        icon: icon,
+        text: label,
+        fontColor: Colors.black,
+        backColor: backColor,
+        height: height,
+        width: 110,
+        iconsize: 40,
+        iconcolor: iconColor ?? AppColors.primaryColor,
+        radius: 10,
+        fontSize: fontSize,
+      ),
+    );
+  }
+
+  void _send(String cmd) => socketService.sendCommand(cmd);
 
   @override
   Widget build(BuildContext context) {
     return Column(
-
-     // mainAxisSize: MainAxisSize.max,
       children: [
         GestureDetector(
-          onTap: () {
-            setState(() {
-              inManualMode = !inManualMode;
-            });
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 700),
-            width: 250,
-            height: 60,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.linearColor.withValues(alpha: 0.55),
-                  AppColors.linearColor.withValues(alpha: 0.05),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                color: AppColors.textColor2.withValues(alpha: 0.2),
-                width: 3,
-              ),
-            ),
-            child: Stack(
-              children: [
-                AnimatedAlign(
-                  alignment: inManualMode
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  duration: const Duration(milliseconds: 700),
-                  child: Container(
-                    padding: const EdgeInsets.all(1.0),
-                    width: 150,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.2),
-                          blurRadius: 5,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                      color: AppColors.primaryColor.withValues(alpha: 0.9),
-                      borderRadius: BorderRadius.circular(27),
-                    ),
-                    child: Center(
-                      child: CustomText(
-                        text: inManualMode ? "Auto" : "Manual",
-                        fontSize: 26,
-                        isBlack: false,
-                        fontColor: AppColors.textColor2,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          onTap: () => setState(() => inManualMode = !inManualMode),
+          child: _buildAnimatedToggle(),
         ),
 
         const SizedBox(height: 50),
 
         !inManualMode
-            ? 
-             Row(
-               children: [
-                  Column(children: [ CustomGlassBox(
-                        icon: Icons.keyboard_arrow_up,
-                        text: 'UP',
-                        fontColor: Colors.black,
-                        backColor: AppColors.textColor2,
-                        height: 100,
-                        width: 110,
-                        iconsize: 40,
-                        iconcolor: AppColors.primaryColor,
-                        radius: 10,
-                        fontSize: 15,
-                      ),
-                       CustomGlassBox(
-                        icon: Icons.keyboard_arrow_down,
-                        text: 'DWN',
-                        fontColor: Colors.black,
-                        backColor: AppColors.textColor2,
-                        height: 100,
-                        width: 110,
-                        iconsize: 40,
-                        iconcolor: AppColors.primaryColor,
-                        radius: 10,
-                        fontSize: 15,
-                        )],),
-              
-                Column(
-                  children: [
-                          CustomGlassBox(
-                        icon: Icons.keyboard_double_arrow_up,
-                        text: 'FWD',
-                        fontColor: Colors.black,
-                        backColor: AppColors.primaryColor,
-                        height: 130,
-                        width: 110,
-                        iconsize: 40,
-                        iconcolor: AppColors.secondaryColor,
-                        radius: 10,
-                        fontSize: 17,
-                      ),
-                       CustomGlassBox(
-                        icon: Icons.keyboard_double_arrow_down,
-                        text: 'BWD',
-                        fontColor: Colors.black,
-                        backColor: AppColors.primaryColor,
-                        height: 130,
-                        width: 110,
-                        iconsize: 40,
-                        iconcolor: AppColors.secondaryColor,
-                        radius: 10,
-                        fontSize: 17,
-                      ),
-                  ],
-                ),
-                 Column(
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
                     children: [
-                      
-                      
-                       CustomGlassBox(
+                      _buildMovementBtn(
                         icon: Icons.keyboard_arrow_up,
-                        text: 'UP',
-                        fontColor: Colors.black,
+                        label: 'UP',
+                        command: 'L',
                         backColor: AppColors.textColor2,
-                        height: 100,
-                        width: 110,
-                        iconsize: 40,
-                        iconcolor: AppColors.primaryColor,
-                        radius: 10,
-                        fontSize: 15,
                       ),
-                       CustomGlassBox(
+                      _buildMovementBtn(
                         icon: Icons.keyboard_arrow_down,
-                        text: 'DWN',
-                        fontColor: Colors.black,
+                        label: 'DWN',
+                        command: 'L',
                         backColor: AppColors.textColor2,
-                        height: 100,
-                        width: 110,
-                        iconsize: 40,
-                        iconcolor: AppColors.primaryColor,
-                        radius: 10,
-                        fontSize: 15,
                       ),
-                      // CustomButton(
-                      //   text: 'Forward',
-                      //   fontSize: 30,
-                      //   isImage: true,
-                      //   backColor: AppColors.primaryColor,
-                      //   fontColor: AppColors.textColor2,
-                      //   width: 300,
-                      //   height: 100,
-                      //   forAutomatic: true,
-                      //   onTap: () {},
-                      // ),
-                      // const Gap(20),
-                      // CustomButton(
-                      //   text: 'Backward',
-                      //   fontSize: 30,
-                      //   isImage: false,
-                      //   backColor: AppColors.primaryColor,
-                      //   fontColor: AppColors.textColor2,
-                      //   width: 300,
-                      //   height: 100,
-                      //   forAutomatic: true,
-                      //   onTap: () {},
-                      // ),
                     ],
                   ),
-               ],
-             ):Joystick(
-                mode: JoystickMode.all,
-                listener: (details) {
-                  debugPrint("Joystick details: ${details.x}, ${details.y}");
-                },
-                base: const Image(
-                  image: AssetImage("assets/images/Ellipse 4.png"),
-                  width: 270,
-                  fit: BoxFit.contain,
-                ),
-                stick: const Image(
-                  image: AssetImage("assets/images/Ellipse 6.png"),
-                  width: 150,
-                  fit: BoxFit.contain,
-                ),
+
+                  Column(
+                    children: [
+                      _buildMovementBtn(
+                        icon: Icons.keyboard_double_arrow_up,
+                        label: 'FWD',
+                        command: 'F',
+                        backColor: AppColors.primaryColor,
+                        height: 130,
+                        fontSize: 17,
+                        iconColor: AppColors.secondaryColor,
+                      ),
+                      _buildMovementBtn(
+                        icon: Icons.keyboard_double_arrow_down,
+                        label: 'BWD',
+                        command: 'B',
+                        backColor: AppColors.primaryColor,
+                        height: 130,
+                        fontSize: 17,
+                        iconColor: AppColors.secondaryColor,
+                      ),
+                    ],
+                  ),
+
+                  Column(
+                    children: [
+                      _buildMovementBtn(
+                        icon: Icons.keyboard_arrow_up,
+                        label: 'UP',
+                        command: 'R',
+                        backColor: AppColors.textColor2,
+                      ),
+                      _buildMovementBtn(
+                        icon: Icons.keyboard_arrow_down,
+                        label: 'DWN',
+                        command: 'R',
+                        backColor: AppColors.textColor2,
+                      ),
+                    ],
+                  ),
+                ],
               )
+            : _buildJoystickView(),
       ],
     );
+  }
+
+  Widget _buildAnimatedToggle() {
+    return Container();
+  }
+
+  Widget _buildJoystickView() {
+    return Container(); 
   }
 }
