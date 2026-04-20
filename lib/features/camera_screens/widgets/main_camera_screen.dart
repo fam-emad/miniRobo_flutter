@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/networking/api_service.dart';
 import 'package:mini_robo/features/camera_screens/data/repos/camera_repo.dart';
 import 'package:mini_robo/features/camera_screens/logic/cubit/camera_cubit.dart';
@@ -9,9 +10,14 @@ import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
-class Camera extends StatelessWidget {
+class Camera extends StatefulWidget {
   const Camera({super.key});
 
+  @override
+  State<Camera> createState() => _CameraState();
+}
+
+class _CameraState extends State<Camera> {
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions
@@ -19,6 +25,17 @@ class Camera extends StatelessWidget {
     final double sh = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.transparent),
+            onPressed: () => _showIPSettingsDialog(context),
+          ),
+          SizedBox(width: sw * 0.03),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: sw * 0.05),
@@ -77,7 +94,11 @@ class Camera extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    CustomText(text: 'No thanks,', fontSize: sw * 0.06, fontWeight: FontWeight.bold),
+                    CustomText(
+                      text: 'No thanks,',
+                      fontSize: sw * 0.06,
+                      fontWeight: FontWeight.bold,
+                    ),
                     CustomText(
                       text: 'Just open Robot camera',
                       fontSize: sw * 0.06,
@@ -91,6 +112,50 @@ class Camera extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showIPSettingsDialog(BuildContext context) {
+    final TextEditingController ipController = TextEditingController(
+      text: ApiConstants.aiServerIp,
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Server Settings"),
+        content: TextField(
+          controller: ipController,
+          decoration: const InputDecoration(labelText: "Robot IP Address"),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // 1. تحديث القيمة الثابتة
+              ApiConstants.aiServerIp = ipController.text;
+
+              // 2. تحديث الواجهة باستخدام setState
+              setState(() {
+                // هذا سيجعل الشاشة تعيد بناء نفسها بالعنوان الجديد (الـ IP الجديد)
+              });
+
+              Navigator.pop(context);
+
+              // اختياري: إظهار رسالة تأكيد
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("IP Updated to: ${ApiConstants.aiServerIp}"),
+                ),
+              );
+            },
+            child: const Text("Save"),
+          ),
+        ],
       ),
     );
   }

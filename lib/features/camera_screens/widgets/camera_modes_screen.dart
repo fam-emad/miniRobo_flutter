@@ -150,12 +150,16 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
       width: sw * 0.28,
       height: sh * 0.07,
       isActive: mode != null && myMode == mode,
-      onTap: isNav
-          ? () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FaceIDScreen()),
-            )
-          : () => _activeRobotMode(mode!),
+     onTap: isNav
+    ? () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+            value: context.read<CameraCubit>(), 
+            child: const FaceIDScreen(),
+          ),
+        ),
+      ) :() => _activeRobotMode(mode!),
     );
   }
 }

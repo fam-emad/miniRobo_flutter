@@ -15,7 +15,6 @@ class CameraCubit extends Cubit<CameraState> {
   Future<void> activateMode(String mode) async {
     emit(CameraLoadingState());
     try {
-      
       final bool isSuccess = await cameraRepository.activateMode(mode);
       if (isSuccess) {
         emit(CameraSuccessState("Mode $mode activated successfully!"));
@@ -35,7 +34,7 @@ class CameraCubit extends Cubit<CameraState> {
     emit(CameraInitialState());
   }
 
-  Future<void> registerUser(  name, File imageFile) async {
+  Future<void> registerUser(String name, File imageFile) async {
     emit(CameraLoadingState());
     try {
       final bool isSuccess = await cameraRepository.register(name, imageFile);
@@ -74,7 +73,6 @@ class CameraCubit extends Cubit<CameraState> {
   Future<void> startAutoGreeting() async {
     emit(CameraLoadingState());
     try {
-      
       final String? name = await cameraRepository.getDetectedName("F");
 
       if (name != null && name != "Unknown") {
