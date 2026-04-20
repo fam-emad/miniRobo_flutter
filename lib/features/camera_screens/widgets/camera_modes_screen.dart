@@ -19,13 +19,13 @@ class CameraModesScreen extends StatefulWidget {
 class _CameraModesScreenState extends State<CameraModesScreen> {
   String myMode = "";
 
-  void _activeRobotMode(String mode) async{
+  void _activeRobotMode(String mode) async {
     setState(() {
       myMode = mode;
     });
 
     if (mounted) {
-      if (mode == "Greeting")  {
+      if (mode == "Greeting") {
         context.read<CameraCubit>().activateGreeting();
       } else {
         String apiMode = (mode == "Object") ? "O" : "F";
@@ -36,6 +36,9 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double sw = MediaQuery.of(context).size.width;
+    final double sh = MediaQuery.of(context).size.height;
+
     return BlocConsumer<CameraCubit, CameraState>(
       listener: (context, state) {
         if (state is CameraErrorState) {
@@ -50,100 +53,109 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          body: Stack(
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(10.0, 60.0, 10.0, 0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.arrow_back_ios_rounded,
-                            size: 40,
-                            color: AppColors.icons,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const CustomTitle(),
-                      ],
-                    ),
-
-                    const SizedBox(height: 200.0),
-                    const CustomText(
-                      text: 'Which mode do you \n want to try today?',
-                      fontSize: 29.0,
-                    ),
-
-                    const SizedBox(height: 80.0),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CustomButton(
-                          text: "Face ID",
-                          fontSize: 22.0,
-                          width: 120.0,
-                          height: 60.0,
-                          fontColor: const Color(0xffEBEBEB),
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FaceIDScreen(),
+          body: SafeArea(
+            child: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: sw * 0.04),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: sw * 0.12, // تحديد عرض ثابت لمنطقة الزر
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
+                              onPressed: () => Navigator.pop(context),
+                              icon: Icon(
+                                Icons.arrow_back_ios_rounded,
+                                size: sw * 0.07,
+                                color: AppColors.icons,
+                              ),
                             ),
                           ),
-                        ),
 
-                        CustomButton(
-                          text: "Detection",
-                          fontSize: 22.0,
-                          width: 120.0,
-                          height: 60.0,
-                          isActive: myMode == "Object",
-                          onTap: () {
-                            _activeRobotMode("Object");
-                          },
-                        ),
+                          const Expanded(
+                            child: Center(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: CustomTitle(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
 
-                        CustomButton(
-                          text: "Greeting",
-                          fontSize: 22.0,
-                          width: 120.0,
-                          height: 60.0,
-                          isActive: myMode == "Greeting",
-                          onTap: () {
-                            _activeRobotMode("Greeting");
-                          },
-                        ),
-                      ],
-                    ),
+                      const Spacer(flex: 1),
 
-                    const SizedBox(height: 25.0),
-                    CustomModesButtons(
-                      text: state is CameraSuccessState
-                          ? state.msg
-                          : (myMode == "Object"
-                                ? "Object is scanning..."
-                                : "Hello, "),
-                    ),
-                  ],
-                ),
-              ),
-              if (state is CameraLoadingState)
-                Container(
-                  color: Colors.black.withValues(alpha: 0.3),
-                  child: const Center(
-                    child: CircularProgressIndicator(color: Colors.cyan),
+                      CustomText(
+                        text: 'Which mode do you\nwant to try today?',
+                        fontSize: sw * 0.07,
+                        fontWeight: FontWeight.bold,
+                      ),
+
+                      const Spacer(flex: 1),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildModeBtn("Face ID", sw, sh, isNav: true),
+                          _buildModeBtn("Detection", sw, sh, mode: "Object"),
+                          _buildModeBtn("Greeting", sw, sh, mode: "Greeting"),
+                        ],
+                      ),
+
+                      SizedBox(height: sh * 0.04),
+
+                      CustomModesButtons(
+                        text: state is CameraSuccessState
+                            ? state.msg
+                            : (myMode == "Object"
+                                  ? "Object is scanning..."
+                                  : "Hello,"),
+                      ),
+
+                      const Spacer(flex: 2),
+                    ],
                   ),
                 ),
-            ],
+
+                if (state is CameraLoadingState)
+                  Container(
+                    color: Colors.black26,
+                    child: const Center(
+                      child: CircularProgressIndicator(color: Colors.cyan),
+                    ),
+                  ),
+              ],
+            ),
           ),
         );
       },
+    );
+  }
+
+  // Extracted button helper to keep code clean
+  Widget _buildModeBtn(
+    String text,
+    double sw,
+    double sh, {
+    bool isNav = false,
+    String? mode,
+  }) {
+    return CustomButton(
+      text: text,
+      fontSize: sw * 0.04,
+      width: sw * 0.28,
+      height: sh * 0.07,
+      isActive: mode != null && myMode == mode,
+      onTap: isNav
+          ? () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FaceIDScreen()),
+            )
+          : () => _activeRobotMode(mode!),
     );
   }
 }

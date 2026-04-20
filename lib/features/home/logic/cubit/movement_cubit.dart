@@ -10,19 +10,28 @@ class MovementCubit extends Cubit<MovementState> {
   Future<void> startDanceParty() async {
     emit(MovementLoading());
     try {
-      await apiService.sendRobotCommand("D");
-      emit(MovementSuccess("The robot is dancing now!"));
+      await apiService.sendCommand("/dance");
+      emit(MovementSuccess("The robot is dancing now! 💃"));
     } catch (e) {
       emit(MovementError("Could not start the party. Check connection."));
     }
   }
 
-  Future<void> stopMovement() async {
+  Future<void> stopDance() async {
     try {
-      await apiService.sendRobotCommand("S"); 
+      await apiService.sendCommand("/stop");
       emit(MovementInitial());
     } catch (e) {
-      emit(MovementError("Error stopping the robot"));
+      emit(MovementError("Failed to stop the robot"));
+    }
+  }
+
+  Future<void> startGreeting() async {
+    try {
+      await apiService.sendCommand("/greet");
+      emit(MovementSuccess("Robot says Hi! 👋"));
+    } catch (e) {
+      emit(MovementError("Error sending greeting"));
     }
   }
 }

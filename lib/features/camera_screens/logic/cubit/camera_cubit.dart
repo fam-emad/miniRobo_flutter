@@ -81,7 +81,7 @@ class CameraCubit extends Cubit<CameraState> {
         log("HELLO $name");
         emit(CameraSuccessState("Hello, $name! 😊"));
 
-        await apiService.sendRobotCommand(ApiConstants.robotGreet);
+        await apiService.sendCommand(ApiConstants.robotGreet);
       } else {
         emit(CameraSuccessState("Welcome! Happy to see you. ✨"));
       }

@@ -84,7 +84,7 @@ class _CustomButtonState extends State<CustomButton> {
                   widget.fontColor ??
                   (widget.isActive
                       ? AppColors.textColor
-                      : AppColors.textColor2),
+                      : AppColors.textColor2), fontWeight: FontWeight.bold,
             ),
             widget.isImage ?? true
                 ? Image(

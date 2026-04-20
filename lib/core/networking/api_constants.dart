@@ -1,21 +1,26 @@
 class ApiConstants {
-  // --- AI Server (Laptop) ---
-  static const String aiServerIp = "172.16.42.174";
+  // 1. عنوان الـ IP الخاص بجهاز الكمبيوتر (الذي يشغل سيرفر بايثون الوسيط)
+  // ملاحظة: تأكد أن هذا هو الـ IP الحالي لجهازك في الشبكة
+  static const String aiServerIp = "192.168.11.164";
+
+  // 2. عنوان الـ IP الخاص بالروبوت (ESP32)
+  // كما هو محدد في كود الـ C++ الخاص بك
+  static const String robotIp = "192.168.1.16";
+
+  // --- إعدادات الـ WebSocket ---
+  // الروبوت يتصل بـ 8080، لذا يجب أن يتصل التطبيق بنفس المنفذ على السيرفر الوسيط
+  static const String socketUrl = "ws://$aiServerIp:8080/";
+
+  // --- AI Server Endpoints (لأوامر الرقص والتحية عبر السيرفر) ---
   static const String aiBaseUrl = "http://$aiServerIp:8000/flutter";
 
-  // --- Robot (ESP32-CAM) ---
-  static const String robotIp = "http://$aiServerIp.100";
+  // تصحيح: الأوامر تذهب للسيرفر الوسيط وهو يرسلها للروبوت
+  static const String robotGreet = "http://$aiServerIp:8000/greet";
+  static const String robotDance = "http://$aiServerIp:8000/dance";
 
-  static const String socketUrl = "ws://$aiServerIp.100:81";
-
-  // --- Endpoints ---
-  static const String robotGreet = "$robotIp/greet";
-  static const String robotDance = "$robotIp/dance";
-
-  // --- Movement Endpoints ---
-  static const String robotForward = "$robotIp/move/forward";
-  static const String robotBackward = "$robotIp/move/backward";
-  static const String robotLeft = "$robotIp/move/left";
-  static const String robotRight = "$robotIp/move/right";
-  static const String robotStop = "$robotIp/move/stop";
+  // --- الحركة اليدوية (إذا كنت تستخدم HTTP بدلاً من السوكت) ---
+  static const String iotBaseUrl = "http://$aiServerIp:8000/move";
+  static const String robotForward = "$iotBaseUrl/forward";
+  static const String robotBackward = "$iotBaseUrl/backward";
+  static const String robotStop = "$iotBaseUrl/stop";
 }

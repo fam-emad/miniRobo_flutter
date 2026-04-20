@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:mini_robo/core/utils/app_colors.dart'; 
+import 'package:mini_robo/core/utils/app_colors.dart';
 
 class CustomBtm extends StatelessWidget {
   const CustomBtm({
@@ -31,16 +31,17 @@ class CustomBtm extends StatelessWidget {
   final double? radius;
 
   final bool isimage;
-
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width ?? 250,
-        height: height ?? 97,
+        // Responsive defaults: 60% of screen width and 12% of height
+        width: width ?? screenSize.width * 0.6,
+        height: height ?? screenSize.height * 0.12,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-
         decoration: BoxDecoration(
           color: ccolor ?? Colors.white,
           borderRadius: BorderRadius.circular(radius ?? 20),
@@ -48,19 +49,15 @@ class CustomBtm extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // SecondCustomeText(
-            //   text: text,
-            //   fontSize: fontSize,
-            //   fontColor: AppColors.secondaryColor,
-            // ),
-            Gap(8),
+            // Your commented text code...
+            const Gap(8),
             isimage
                 ? Icon(
                     icon,
-                    size: iconsize ?? 50,
+                    size: iconsize ?? (screenSize.width * 0.12), // Scaled icon
                     color: iconcolor ?? AppColors.icons,
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
           ],
         ),
       ),

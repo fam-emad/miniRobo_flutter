@@ -115,7 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             child: CustomText(
               text: errorText!,
               fontSize: 18,
-              fontColor: Colors.red,
+              fontColor: Colors.red, fontWeight: FontWeight.bold,
             ),
           ),
       ],

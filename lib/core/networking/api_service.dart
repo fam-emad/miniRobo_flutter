@@ -26,11 +26,20 @@ class ApiService {
     return temp;
   }
 
-  Future<void> sendRobotCommand(String endpoint) async {
+  Future<void> sendCommand(String endpoint) async {
     try {
-      await client.get(Uri.parse(endpoint));
+      final response = await http.get(
+        Uri.parse('$ApiConstants.iotBaseUrl$ApiConstants.endpoint'),
+      );
+      if (response.statusCode == 200) {
+        print("Command $endpoint sent successfully!");
+      }
     } catch (e) {
-      debugPrint("Move Error: $e");
+      print("Error sending command: $e");
     }
   }
+
+  void startDancing() => sendCommand('/dance');
+
+  void startGreeting() => sendCommand('/greet');
 }

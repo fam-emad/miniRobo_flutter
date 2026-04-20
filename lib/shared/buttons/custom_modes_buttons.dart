@@ -45,7 +45,13 @@ class _CustomModesButtonsState extends State<CustomModesButtons> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [CustomText(text: widget.text, fontSize: 29)],
+              children: [
+                CustomText(
+                  text: widget.text,
+                  fontSize: 29,
+                  fontWeight: FontWeight.bold,
+                ),
+              ],
             ),
           ),
         ),

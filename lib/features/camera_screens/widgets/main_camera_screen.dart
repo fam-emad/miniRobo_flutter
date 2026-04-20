@@ -14,43 +14,48 @@ class Camera extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen dimensions
+    final double sw = MediaQuery.of(context).size.width;
+    final double sh = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(10.0, 60.0, 0.0, 0),
-        child: Center(
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: sw * 0.05),
           child: Column(
             children: [
-              CustomTitle(),
+              SizedBox(height: sh * 0.02),
+              const CustomTitle(),
 
-              const SizedBox(height: 174.0),
+              // Spacer spreads elements out evenly based on screen height
+              const Spacer(flex: 2),
 
-              const CustomText(
-                text: '   Would you like to make \nmini robot remember you?',
-                fontSize: 29.0,
+              CustomText(
+                text: 'Would you like to make\nmini robot remember you?',
+                fontSize: sw * 0.060, // Responsive font
+                fontWeight: FontWeight.bold,
               ),
 
-              const SizedBox(height: 32.0),
+              const Spacer(flex: 1),
 
-              Center(
-                child: CustomButton(
-                  text: "Yes, let's do it",
-                  fontSize: 32.0,
-                  width: 358.0,
-                  height: 90.0,
-                  fontColor: Color(0xffEBEBEB),
-                  onTap: () {
-                    context.read<CameraCubit>().resetState();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const FaceIDScreen(),
-                      ),
-                    );
-                  },
-                ),
+              CustomButton(
+                text: "Yes, let's do it",
+                fontSize: sw * 0.08,
+                width: sw * 0.9, // 90% of screen width
+                height: sh * 0.1, // 10% of screen height
+                fontColor: const Color(0xffEBEBEB),
+                onTap: () {
+                  context.read<CameraCubit>().resetState();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FaceIDScreen(),
+                    ),
+                  );
+                },
               ),
 
-              const SizedBox(height: 87.0),
+              const Spacer(flex: 1),
 
               GestureDetector(
                 onTap: () {
@@ -58,7 +63,7 @@ class Camera extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BlocProvider(
-                        create: (context) { 
+                        create: (context) {
                           final apiService = ApiService();
                           return CameraCubit(
                             CameraRepo(apiService),
@@ -70,11 +75,19 @@ class Camera extends StatelessWidget {
                     ),
                   );
                 },
-                child: const CustomText(
-                  text: '               no thanks,\nJust open Robot camera',
-                  fontSize: 26.0,
+                child: Column(
+                  children: [
+                    CustomText(text: 'No thanks,', fontSize: sw * 0.06, fontWeight: FontWeight.bold),
+                    CustomText(
+                      text: 'Just open Robot camera',
+                      fontSize: sw * 0.06,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
                 ),
               ),
+
+              const Spacer(flex: 2),
             ],
           ),
         ),

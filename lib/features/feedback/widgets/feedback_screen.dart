@@ -20,7 +20,7 @@ class FeedbackScreen extends StatelessWidget {
               Gap(100),
               CustomText(
                 text: 'Which mode do you \n  want to try today?',
-                fontSize: 29.0,
+                fontSize: 29.0, fontWeight: FontWeight.bold,
               ),
 
               Gap(50),

@@ -12,13 +12,24 @@ class SwitchCustom extends StatefulWidget {
 }
 
 class _SwitchCustomState extends State<SwitchCustom> {
-  bool inManualMode = false;
   final SocketService socketService = SocketService();
+  bool inManualMode = false;
+
+  void _send(String cmd) => socketService.sendCommand(cmd);
 
   @override
   void initState() {
-    socketService.connect("ws://${ApiConstants.aiServerIp}.100:81");
-    return super.initState();
+    socketService.connect("ws://${ApiConstants.aiServerIp}:8080/");
+    super.initState();
+  }
+
+  void toggleManualMode() {
+    setState(() {
+      inManualMode = !inManualMode;
+      _send(
+        inManualMode ? "MANUAL MOVEMENT MODE ON" : "MANUAL MOVEMENT MODE OFF",
+      );
+    });
   }
 
   @override
@@ -27,119 +38,152 @@ class _SwitchCustomState extends State<SwitchCustom> {
     super.dispose();
   }
 
+  // ويدجت الزر مع تحسينات في الحجم المتجاوب
   Widget _buildMovementBtn({
     required IconData icon,
     required String label,
     required String command,
     required Color backColor,
-    double height = 100,
-    double fontSize = 15,
-    Color? iconColor,
+    required double sw, // عرض الشاشة
+    double? heightFactor, // عامل الطول بالنسبة للشاشة
   }) {
     return GestureDetector(
-      onTapDown: (_) => _send(command), 
-      onTapUp: (_) => _send('S'), 
-      onTapCancel: () => _send('S'), 
+      onTapDown: (_) => _send("$command START"),
+      onTapUp: (_) => _send("$command STOP"),
+      onTapCancel: () => _send("$command STOP"),
       child: CustomGlassBox(
         icon: icon,
         text: label,
         fontColor: Colors.black,
         backColor: backColor,
-        height: height,
-        width: 110,
-        iconsize: 40,
-        iconcolor: iconColor ?? AppColors.primaryColor,
-        radius: 10,
-        fontSize: fontSize,
+        // حسابات ديناميكية تعتمد على عرض الشاشة
+        height: heightFactor != null ? (sw * heightFactor) : (sw * 0.26),
+        iconsize: sw * 0.09,
+        iconcolor: AppColors.primaryColor,
+        radius: 12,
+        fontSize: sw * 0.035,
       ),
     );
   }
 
-  void _send(String cmd) => socketService.sendCommand(cmd);
-
+  // داخل ملف custom_switch.dart - تعديل الـ build
+  // داخل ملف custom_switch.dart
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () => setState(() => inManualMode = !inManualMode),
-          child: _buildAnimatedToggle(),
-        ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final double sw = constraints.maxWidth;
 
-        const SizedBox(height: 50),
-
-        !inManualMode
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        return SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
+                // استخدام spaceEvenly لتوزيع العناصر داخل المساحة المتاحة من الـ Expanded
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    children: [
-                      _buildMovementBtn(
-                        icon: Icons.keyboard_arrow_up,
-                        label: 'UP',
-                        command: 'L',
-                        backColor: AppColors.textColor2,
+                  // 1. زر التفعيل (Toggle)
+                  GestureDetector(
+                    onTap: toggleManualMode,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: sw * 0.45,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: inManualMode
+                            ? AppColors.primaryColor
+                            : Colors.grey[300],
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      _buildMovementBtn(
-                        icon: Icons.keyboard_arrow_down,
-                        label: 'DWN',
-                        command: 'L',
-                        backColor: AppColors.textColor2,
+                      child: Center(
+                        child: Text(
+                          inManualMode ? "MANUAL ON" : "MANUAL OFF",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: sw * 0.04,
+                            color: inManualMode ? Colors.white : Colors.black54,
+                          ),
+                        ),
                       ),
-                    ],
+                    ),
                   ),
 
-                  Column(
-                    children: [
-                      _buildMovementBtn(
-                        icon: Icons.keyboard_double_arrow_up,
-                        label: 'FWD',
-                        command: 'F',
-                        backColor: AppColors.primaryColor,
-                        height: 130,
-                        fontSize: 17,
-                        iconColor: AppColors.secondaryColor,
-                      ),
-                      _buildMovementBtn(
-                        icon: Icons.keyboard_double_arrow_down,
-                        label: 'BWD',
-                        command: 'B',
-                        backColor: AppColors.primaryColor,
-                        height: 130,
-                        fontSize: 17,
-                        iconColor: AppColors.secondaryColor,
-                      ),
-                    ],
-                  ),
+                  AnimatedOpacity(
+                    duration: const Duration(milliseconds: 500),
+                    opacity: inManualMode ? 1.0 : 0.3,
+                    child: AbsorbPointer(
+                      absorbing: !inManualMode,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _buildSideColumn(sw, 'LH'),
 
-                  Column(
-                    children: [
-                      _buildMovementBtn(
-                        icon: Icons.keyboard_arrow_up,
-                        label: 'UP',
-                        command: 'R',
-                        backColor: AppColors.textColor2,
+                          Column(
+                            children: [
+                              Expanded(
+                                child: _buildMovementBtn(
+                                  icon: Icons.keyboard_double_arrow_up,
+                                  label: 'FWD',
+                                  command: 'MOVE FORWARD',
+                                  backColor: AppColors.primaryColor.withOpacity(
+                                    0.8,
+                                  ),
+                                  heightFactor: 0.30,
+                                  sw: sw,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Expanded(
+                                child: _buildMovementBtn(
+                                  icon: Icons.keyboard_double_arrow_down,
+                                  label: 'BWD',
+                                  command: 'MOVE BACKWARD',
+                                  backColor: AppColors.primaryColor.withOpacity(
+                                    0.8,
+                                  ),
+                                  heightFactor: 0.30,
+                                  sw: sw,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          _buildSideColumn(sw, 'RH'),
+                        ],
                       ),
-                      _buildMovementBtn(
-                        icon: Icons.keyboard_arrow_down,
-                        label: 'DWN',
-                        command: 'R',
-                        backColor: AppColors.textColor2,
-                      ),
-                    ],
+                    ),
                   ),
                 ],
-              )
-            : _buildJoystickView(),
-      ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget _buildAnimatedToggle() {
-    return Container();
-  }
-
-  Widget _buildJoystickView() {
-    return Container(); 
+  Widget _buildSideColumn(double sw, String prefix) {
+    return Column(
+      children: [
+        Expanded(
+          child: _buildMovementBtn(
+            icon: Icons.keyboard_arrow_up,
+            label: '$prefix UP',
+            command: '$prefix UP',
+            backColor: AppColors.textColor2,
+            sw: sw,
+          ),
+        ),
+        const SizedBox(height: 15),
+        Expanded(
+          child: _buildMovementBtn(
+            icon: Icons.keyboard_arrow_down,
+            label: '$prefix DWN',
+            command: '$prefix DOWN',
+            backColor: AppColors.textColor2,
+            sw: sw,
+          ),
+        ),
+      ],
+    );
   }
 }

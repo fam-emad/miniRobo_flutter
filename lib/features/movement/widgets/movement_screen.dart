@@ -12,27 +12,36 @@ class Movement extends StatefulWidget {
 class _MovementState extends State<Movement> {
   @override
   Widget build(BuildContext context) {
+    final double sw = MediaQuery.of(context).size.width;
+    final double sh = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Center(
+      body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 60.0, 0.0, 0),
+          padding: EdgeInsets.symmetric(horizontal: sw * 0.04),
           child: Column(
             children: [
-              CustomTitle(),
-              SizedBox(height: 15),
+              SizedBox(height: sh * 0.02),
+              const CustomTitle(),
 
-              SwitchCustom(),
-              Spacer(),
-              Row(
-                children: [
-                  SizedBox(width: 10),
-                  Image(
-                    image: AssetImage("assets/images/robot_walk.png"),
-                    height: 210,
-                    fit: BoxFit.contain,
-                  ),
-                ],
+              // نعطي الأزرار 65% من مساحة الشاشة لضمان عدم ضغطها
+              const Expanded(flex: 5, child: SwitchCustom()),
+
+              // الصورة في الأسفل مع مساحة مرنة
+              Flexible(
+                flex: 2,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      "assets/images/robot_walk.png",
+                      height: sh * 0.18, // تصغير الصورة قليلاً
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
               ),
+              SizedBox(height: sh * 0.02),
             ],
           ),
         ),

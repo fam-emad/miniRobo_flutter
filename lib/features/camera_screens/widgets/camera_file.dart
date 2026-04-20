@@ -20,21 +20,13 @@ class FaceIDScreen extends StatefulWidget {
 class _FaceIDScreenState extends State<FaceIDScreen> {
   final TextEditingController _userNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  //Image File
   File? image;
-
-  //Image Picker
   final picker = ImagePicker();
 
-  //pick Image method
   Future<void> pickImage(ImageSource source) async {
     final pickedFile = await picker.pickImage(source: source);
-
     if (pickedFile != null) {
-      setState(() {
-        image = File(pickedFile.path);
-      });
+      setState(() => image = File(pickedFile.path));
     }
   }
 
@@ -46,6 +38,10 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double sw = screenSize.width;
+    final double sh = screenSize.height;
+
     return BlocConsumer<CameraCubit, CameraState>(
       listener: (context, state) {
         if (state is CameraSuccessState) {
@@ -56,106 +52,99 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
         } else if (state is CameraErrorState) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text("no answer")));
+          ).showSnackBar(const SnackBar(content: Text("Registration failed")));
         }
       },
       builder: (context, state) {
         return Scaffold(
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 0),
+          body: SafeArea(
+            // Ensures content doesn't hit the notch
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: sw * 0.05),
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
+                    SizedBox(height: sh * 0.02),
                     Row(
                       children: [
-                        Expanded(
-                          flex: 1,
+                        SizedBox(
+                          width: sw * 0.12, // تحديد عرض ثابت لمنطقة الزر
                           child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: () => Navigator.pop(context),
                             icon: Icon(
                               Icons.arrow_back_ios_rounded,
-                              size: 40,
+                              size: sw * 0.07,
                               color: AppColors.icons,
                             ),
                           ),
                         ),
 
-                        SizedBox(width: 10),
-                        Expanded(flex: 5, child: CustomTitle()),
+                        const Expanded(
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: CustomTitle(),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-
-                    SizedBox(height: 50.0),
-
-                    //image display
+                    SizedBox(height: sh * 0.04),
                     Container(
-                      height: 320,
-                      width: 365,
+                      height: sh * 0.35,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: AppColors.primaryColor.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
                         child: image != null
-                            ?
-                              //image selected
-                              Image.file(image!, fit: BoxFit.cover)
-                            //no image selected
+                            ? Image.file(image!, fit: BoxFit.cover)
                             : Center(
                                 child: CustomText(
                                   text: "No image selected",
-                                  fontSize: 22,
+                                  fontSize: sw * 0.05,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                       ),
                     ),
-
-                    SizedBox(height: 20.0),
-
-                    //buttons
+                    SizedBox(height: sh * 0.03),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //camera button
                         CustomButton(
                           text: "Camera",
-                          fontSize: 24,
-                          width: 160,
-                          height: 75,
+                          fontSize: sw * 0.05,
+                          width: sw * 0.42,
+                          height: sh * 0.07,
                           onTap: () => pickImage(ImageSource.camera),
                         ),
-
-                        SizedBox(width: 2.0),
-                        //gallery button
                         CustomButton(
                           text: "Gallery",
-                          fontSize: 24,
-                          width: 170,
-                          height: 75,
+                          fontSize: sw * 0.05,
+                          width: sw * 0.42,
+                          height: sh * 0.07,
                           onTap: () => pickImage(ImageSource.gallery),
                         ),
                       ],
                     ),
-
-                    SizedBox(height: 40.0),
-
-                    //name input
+                    SizedBox(height: sh * 0.04),
                     CustomButton(
                       text: "Please Enter Your First Name",
-                      fontSize: 22.0,
-                      width: 370,
-                      height: 90.0,
-                      fontColor: Color(0xffEBEBEB),
+                      fontSize: sw * 0.045,
+                      width: double.infinity,
+                      height: sh * 0.08,
+                      fontColor: const Color(0xffEBEBEB),
                       onTap: () {},
                     ),
-
-                    const SizedBox(height: 15.0),
-
+                    SizedBox(height: sh * 0.02),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           flex: 3,
@@ -164,41 +153,23 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
                             controller: _userNameController,
                           ),
                         ),
-
+                        SizedBox(width: sw * 0.02),
                         Expanded(
                           flex: 1,
                           child: CustomButton(
-                            fontSize: 22.0,
-                            width: 40,
-                            height: 68.0,
+                            fontSize: sw * 0.04,
+                            width: sw * 0.2,
+                            height: sh * 0.07,
                             fontColor: AppColors.textColor2,
                             text: state is CameraLoadingState ? "..." : "Done",
                             onTap: state is CameraLoadingState
                                 ? () {}
-                                : () {
-                                    if (_formKey.currentState!.validate()) {
-                                      if (image == null) {
-                                        ScaffoldMessenger.of(
-                                          context,
-                                        ).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              "Please select image first",
-                                            ),
-                                          ),
-                                        );
-                                        return;
-                                      }
-                                      context.read<CameraCubit>().registerUser(
-                                        _userNameController.text,
-                                        image!,
-                                      );
-                                    }
-                                  },
+                                : _handleSubmit,
                           ),
                         ),
                       ],
                     ),
+                    SizedBox(height: sh * 0.03),
                   ],
                 ),
               ),
@@ -207,5 +178,20 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
         );
       },
     );
+  }
+
+  void _handleSubmit() {
+    if (_formKey.currentState!.validate()) {
+      if (image == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please select image first")),
+        );
+        return;
+      }
+      context.read<CameraCubit>().registerUser(
+        _userNameController.text,
+        image!,
+      );
+    }
   }
 }

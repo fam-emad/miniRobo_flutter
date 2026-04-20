@@ -13,6 +13,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // حساب الأبعاد بناءً على الشاشة الحالية
+    final double sw = MediaQuery.of(context).size.width;
+    final double sh = MediaQuery.of(context).size.height;
+
     return BlocListener<MovementCubit, MovementState>(
       listener: (context, state) {
         if (state is MovementSuccess) {
@@ -29,8 +33,10 @@ class Home extends StatelessWidget {
         }
       },
       child: Scaffold(
+        // استخدام التغليف بـ SafeArea لمنع التداخل مع الحواف
         body: Container(
-          padding: const EdgeInsets.fromLTRB(0.0, 35.0, 0.0, 0),
+          width: sw,
+          height: sh,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -43,80 +49,82 @@ class Home extends StatelessWidget {
               ],
             ),
           ),
-          child: Column(
-            children: [
-              SizedBox(height: 30),
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      CustomGlassBox(icon: Icons.flash_on, text: 'Battery'),
-
-                      Stack(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(21.0, 15, 0.0, 0),
-                            width: 141,
-                            height: 126,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.7),
-                              borderRadius: BorderRadius.circular(40),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.3),
-                                width: 1.5,
+          child: SafeArea(
+            child: SingleChildScrollView(
+              // هذا يمنع خطأ الـ Overflow تماماً
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: sw * 0.02),
+                child: Column(
+                  children: [
+                    SizedBox(height: sh * 0.02),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // الجزء الأيسر: البطارية والطاقة
+                        SizedBox(
+                          width: sw * 0.45,
+                          child: Column(
+                            children: [
+                              CustomGlassBox(
+                                icon: Icons.flash_on,
+                                text: 'Battery',
+                                width: sw * 0.4,
+                                height: sh * 0.16,
                               ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.05),
-                                  blurRadius: 10,
-                                  spreadRadius: 2,
-                                ),
-                              ],
-                            ),
+                              const SizedBox(height: 10),
+                              CustomGlassBox(
+                                icon: Icons.energy_savings_leaf,
+                                text: 'Power',
+                                fontColor: AppColors.primaryColor,
+                                iconcolor: Colors.green,
+                                width: sw * 0.4,
+                                height: sh * 0.16,
+                              ),
+                            ],
                           ),
-                          CustomGlassBox(
-                            icon: Icons.energy_savings_leaf,
-                            text: 'Power',
-                            fontColor: AppColors.primaryColor,
-                            iconcolor: Colors.green,
+                        ),
+                        // الجزء الأيمن: صورة الروبوت
+                        Expanded(
+                          child: Image.asset(
+                            'assets/images/robot_idle.png',
+                            height: sh * 0.35,
+                            fit: BoxFit.contain,
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-
-                  Expanded(
-                    flex: 2,
-                    child: Image(
-                      image: AssetImage('assets/images/robot_idle.png'),
-                      height: 270,
-                      fit: BoxFit.cover,
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    SizedBox(height: sh * 0.05),
+                    const CustomTitle(),
+                    SizedBox(height: sh * 0.02),
+                    // الزر الرئيسي
+                    CustomButton(
+                      text: 'Start the party',
+                      fontSize: sw * 0.06,
+                      fontColor: AppColors.textColor,
+                      width: sw * 0.85,
+                      height: sh * 0.12,
+                      isImage: true,
+                      onTap: () {
+                        context.read<MovementCubit>().startDanceParty();
+                      },
+                      backColor: AppColors.textColor2,
+                    ),
+                    SizedBox(height: sh * 0.05),
+                    CustomText(
+                      text: "Let’s explore more with",
+                      fontSize: sw * 0.055,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    CustomText(
+                      text: "Chief Smile Officer",
+                      fontSize: sw * 0.055,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    SizedBox(height: sh * 0.02), // مسافة أمان أخيرة
+                  ],
+                ),
               ),
-              SizedBox(height: 50),
-
-              CustomTitle(),
-              SizedBox(height: 15),
-
-              CustomButton(
-                text: 'Start the party',
-                fontSize: 26,
-                fontColor: AppColors.textColor,
-                width: 350,
-                height: 120,
-                isImage: true,
-                onTap: () {
-                  context.read<MovementCubit>().startDanceParty();
-                },
-                backColor: AppColors.textColor2,
-              ),
-
-              Spacer(),
-              CustomText(text: "Let’s explore more with", fontSize: 25),
-              CustomText(text: "Chief Smile Officer", fontSize: 25),
-            ],
+            ),
           ),
         ),
       ),

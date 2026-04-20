@@ -11,7 +11,7 @@ class CustomText extends StatelessWidget {
     required this.text,
     required this.fontSize,
     this.isBlack = true,
-    this.fontColor,
+    this.fontColor, required FontWeight fontWeight,
   });
 
   @override
@@ -20,6 +20,7 @@ class CustomText extends StatelessWidget {
       child: Text(
         text,
         maxLines: 2,
+        
         overflow: TextOverflow.ellipsis,
         textScaler: TextScaler.linear(1.0),
         style: TextStyle(
