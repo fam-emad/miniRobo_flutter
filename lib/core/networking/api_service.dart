@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mini_robo/core/networking/api_constants.dart';
@@ -8,15 +8,22 @@ class ApiService {
 
   Future<http.Response> sendAiRequest({
     required String mode,
-    Map<String, dynamic>? body,
+    dynamic body,
   }) async {
     final url = Uri.parse(ApiConstants.aiBaseUrl);
+    log("Sent to AI: $mode");
+    if (body != null) {}
 
-    return await client.post(
-      url,
-      headers: {'Content-Type': 'application/json', 'mode': mode},
-      body: body != null ? jsonEncode(body) : null,
-    );
+    final headers = {
+      'mode': mode,
+      'Content-Type': body != null ? 'image/jpeg' : 'application/json',
+    };
+
+    var temp = await client
+        .post(url, headers: headers, body: body)
+        .timeout(const Duration(seconds: 60));
+
+    return temp;
   }
 
   Future<void> sendRobotCommand(String endpoint) async {

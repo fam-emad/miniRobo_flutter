@@ -56,7 +56,7 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
         } else if (state is CameraErrorState) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text(state.error)));
+          ).showSnackBar(SnackBar(content: Text("no answer")));
         }
       },
       builder: (context, state) {

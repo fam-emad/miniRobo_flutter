@@ -19,13 +19,13 @@ class CameraModesScreen extends StatefulWidget {
 class _CameraModesScreenState extends State<CameraModesScreen> {
   String myMode = "";
 
-  void _activeRobotMode(String mode) {
+  void _activeRobotMode(String mode) async{
     setState(() {
       myMode = mode;
     });
 
     if (mounted) {
-      if (mode == "Greeting") {
+      if (mode == "Greeting")  {
         context.read<CameraCubit>().activateGreeting();
       } else {
         String apiMode = (mode == "Object") ? "O" : "F";

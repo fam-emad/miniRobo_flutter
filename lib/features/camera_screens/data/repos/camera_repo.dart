@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:mini_robo/features/camera_screens/data/models/ai_response.dart';
 import '../../../../core/networking/api_service.dart';
@@ -13,23 +14,23 @@ class CameraRepo {
     var result = await FlutterImageCompress.compressWithFile(
       file.absolute.path,
       minWidth: 800,
-      minHeight: 600,
-      quality: 70,
+      minHeight: 800,
+      quality: 80,
+      format: CompressFormat.jpeg,
     );
     return result!;
   }
 
   Future<bool> register(String name, File imageFile) async {
-    Uint8List compressedBytes = await compressImage(imageFile);
+    try {
+      final bytes = await compressImage(imageFile);
 
-    String base64Image = base64Encode(compressedBytes);
-
-    final response = await apiService.sendAiRequest(
-      mode: 'R',
-      body: {'name': name, 'image': base64Image},
-    );
-
-    return response.statusCode == 200;
+      final response = await apiService.sendAiRequest(mode: name, body: bytes);
+      return response.statusCode == 200;
+    } on Exception catch (e) {
+      debugPrint("Register Error: $e");
+      return false;
+    }
   }
 
   Future<String?> getDetectedName(String mode) async {
