@@ -116,7 +116,7 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                             ? state.msg
                             : (myMode == "Object"
                                   ? "Object is scanning..."
-                                  : "Hello,"),
+                                  : "  Ready to Process ✨"),
                       ),
 
                       const Spacer(flex: 2),
