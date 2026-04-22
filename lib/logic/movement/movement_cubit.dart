@@ -1,17 +1,35 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/networking/api_service.dart';
+import 'package:mini_robo/core/networking/socket_service.dart';
 import 'movement_states.dart';
 
 class MovementCubit extends Cubit<MovementState> {
   final ApiService apiService;
+  final SocketService socketService;
 
-  MovementCubit(this.apiService) : super(MovementInitial());
+  MovementCubit(this.apiService, this.socketService)
+    : super(MovementInitial()) {
+    _initConnection();
+  }
+
+  void _initConnection() {
+    socketService.connect(ApiConstants.socketUrl);
+  }
+
+  void sendManualCommand(String cmd) {
+    if (socketService.isConnected) {
+      socketService.sendCommand(cmd);
+    } else {
+      emit(MovementError("Could not start the party. Check connection."));
+    }
+  }
 
   Future<void> startDanceParty() async {
     emit(MovementLoading());
     try {
-      await apiService.sendCommand("/dance");
-      emit(MovementSuccess("The robot is dancing now! 💃"));
+      await apiService.sendCommand(ApiConstants.robotDance);
+      emit(MovementSuccess("The robot is dancing now!"));
     } catch (e) {
       emit(MovementError("Could not start the party. Check connection."));
     }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/camera_cubit.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/camera_states.dart';
+import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
+import 'package:mini_robo/logic/camera/cubit/camera_states.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/buttons/custom_modes_buttons.dart';
@@ -57,13 +57,16 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
             child: Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: sw * 0.04),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: sw * 0.05,
+                    vertical: sw * 0.15,
+                  ),
                   child: Column(
                     children: [
                       Row(
                         children: [
                           SizedBox(
-                            width: sw * 0.12, // تحديد عرض ثابت لمنطقة الزر
+                            width: sw * 0.05,
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
@@ -150,16 +153,17 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
       width: sw * 0.28,
       height: sh * 0.07,
       isActive: mode != null && myMode == mode,
-     onTap: isNav
-    ? () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: context.read<CameraCubit>(), 
-            child: const FaceIDScreen(),
-          ),
-        ),
-      ) :() => _activeRobotMode(mode!),
+      onTap: isNav
+          ? () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BlocProvider.value(
+                  value: context.read<CameraCubit>(),
+                  child: const FaceIDScreen(),
+                ),
+              ),
+            )
+          : () => _activeRobotMode(mode!),
     );
   }
 }

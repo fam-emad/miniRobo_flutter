@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/networking/api_service.dart';
-import 'package:mini_robo/features/camera_screens/data/repos/camera_repo.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/camera_cubit.dart';
+import 'package:mini_robo/logic/camera/data/repos/camera_repo.dart';
+import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_modes_screen.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
@@ -20,7 +20,6 @@ class Camera extends StatefulWidget {
 class _CameraState extends State<Camera> {
   @override
   Widget build(BuildContext context) {
-    // Get screen dimensions
     final double sw = MediaQuery.of(context).size.width;
     final double sh = MediaQuery.of(context).size.height;
 
@@ -28,6 +27,7 @@ class _CameraState extends State<Camera> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: Icon(null),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings, color: Colors.transparent),
@@ -41,14 +41,18 @@ class _CameraState extends State<Camera> {
           padding: EdgeInsets.symmetric(horizontal: sw * 0.05),
           child: Column(
             children: [
-              SizedBox(height: sh * 0.02),
               const CustomTitle(),
 
               // Spacer spreads elements out evenly based on screen height
               const Spacer(flex: 2),
 
               CustomText(
-                text: 'Would you like to make\nmini robot remember you?',
+                text: 'Would you like to make',
+                fontSize: sw * 0.060, // Responsive font
+                fontWeight: FontWeight.bold,
+              ),
+              CustomText(
+                text: 'mini robot remember you?',
                 fontSize: sw * 0.060, // Responsive font
                 fontWeight: FontWeight.bold,
               ),

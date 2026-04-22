@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/camera_cubit.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/camera_states.dart';
+import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
+import 'package:mini_robo/logic/camera/cubit/camera_states.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_textfield.dart';
@@ -58,9 +58,11 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            // Ensures content doesn't hit the notch
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: sw * 0.05),
+              padding: EdgeInsets.symmetric(
+                horizontal: sw * 0.05,
+                vertical: sh * 0.03,
+              ),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -69,7 +71,7 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
                     Row(
                       children: [
                         SizedBox(
-                          width: sw * 0.12, // تحديد عرض ثابت لمنطقة الزر
+                          width: sw * 0.05, // تحديد عرض ثابت لمنطقة الزر
                           child: IconButton(
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),

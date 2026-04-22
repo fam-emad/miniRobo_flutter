@@ -52,12 +52,16 @@ class _InformationState extends State<Information> {
         child: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: sw * 0.04),
+              padding:  EdgeInsetsGeometry.fromLTRB(
+            sw * 0.05,
+            sw * 0.15,
+            sw * 0.05,
+            0,
+          ),
               child: Column(
                 children: [
-                  SizedBox(height: sh * 0.02),
                   const CustomTitle(),
-                  SizedBox(height: sh * 0.025),
+                  SizedBox(height: sh * 0.005),
 
                   // Flexible GridView
                   Expanded(
@@ -71,7 +75,7 @@ class _InformationState extends State<Information> {
                       ),
                       itemCount: infoItems.length,
                       padding: EdgeInsets.only(
-                        bottom: sh * 0.2,
+                        bottom: sh * 0.005,
                       ), // Room for robot image
                       itemBuilder: (context, index) {
                         final item = infoItems[index];
@@ -80,7 +84,7 @@ class _InformationState extends State<Information> {
                           text: item['text'],
                           fontColor: Colors.black,
                           backColor: item['color'],
-                          iconsize: sw * 0.15,
+                          iconsize: sw * 0.2,
                           iconcolor: item['iconColor'],
                           radius: 20,
                           fontSize: sw * 0.04,

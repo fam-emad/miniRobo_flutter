@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_service.dart';
-import 'package:mini_robo/features/camera_screens/data/repos/camera_repo.dart';
-import 'package:mini_robo/features/camera_screens/logic/cubit/camera_cubit.dart';
-import 'package:mini_robo/features/home/logic/cubit/movement_cubit.dart';
-import 'package:mini_robo/shared/buttons/custom_navigation_bottom.dart';
+import 'package:mini_robo/core/networking/socket_service.dart';
+import 'package:mini_robo/logic/camera/data/repos/camera_repo.dart';
+import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
+import 'package:mini_robo/logic/movement/movement_cubit.dart';
+import 'package:mini_robo/start_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +14,9 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => MovementCubit(ApiService())),
+        BlocProvider(
+          create: (context) => MovementCubit(ApiService(), SocketService()),
+        ),
         BlocProvider(
           create: (context) =>
               CameraCubit(CameraRepo(ApiService()), ApiService()),
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: BottomNavigationCustom(),
+      home: Start(),
     );
   }
 }

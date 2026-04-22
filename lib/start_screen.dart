@@ -13,8 +13,6 @@ class Start extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            // begin: Alignment.bottomCenter,
-            // end: Alignment.topCenter,
             radius: 1.2,
             colors: [
               Color(0xFF86B4E5),

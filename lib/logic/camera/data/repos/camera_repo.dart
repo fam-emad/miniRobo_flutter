@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:mini_robo/features/camera_screens/data/models/ai_response.dart';
+import 'package:mini_robo/logic/camera/data/models/ai_response.dart';
 import '../../../../core/networking/api_service.dart';
 
 class CameraRepo {

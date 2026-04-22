@@ -18,30 +18,31 @@ class _MovementState extends State<Movement> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: sw * 0.04),
+          padding: EdgeInsetsGeometry.fromLTRB(
+            sw * 0.05,
+            sw * 0.15,
+            sw * 0.05,
+            0,
+          ),
           child: Column(
             children: [
-              SizedBox(height: sh * 0.02),
               const CustomTitle(),
-
-              // نعطي الأزرار 65% من مساحة الشاشة لضمان عدم ضغطها
+          
               const Expanded(flex: 5, child: SwitchCustom()),
-
-              // الصورة في الأسفل مع مساحة مرنة
+          
               Flexible(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
                       "assets/images/robot_walk.png",
-                      height: sh * 0.18, // تصغير الصورة قليلاً
+                      height: sh * 0.25,
                       fit: BoxFit.contain,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: sh * 0.02),
             ],
           ),
         ),
