@@ -8,8 +8,15 @@ import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  bool isDancing = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +25,11 @@ class Home extends StatelessWidget {
 
     return BlocListener<MovementCubit, MovementState>(
       listener: (context, state) {
+        if (state is MovementInitial) {
+          setState(() {
+            isDancing = false; //reset dancing mode
+          });
+        }
         if (state is MovementSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -80,7 +92,7 @@ class Home extends StatelessWidget {
                                     iconcolor: Colors.green,
                                     width: sw * 0.4,
                                     height: sh * 0.16,
-                                  )
+                                  ),
                                 ],
                               ),
                             ],
@@ -100,16 +112,24 @@ class Home extends StatelessWidget {
                     SizedBox(height: sh * 0.02),
 
                     CustomButton(
-                      text: 'Start the party',
+                      text: isDancing ? 'Stop the party' : 'Start the party',
                       fontSize: sw * 0.06,
                       fontColor: AppColors.textColor,
                       width: sw * 0.85,
                       height: sh * 0.12,
                       isImage: true,
+                      backColor: isDancing
+                          ? Colors.redAccent
+                          : AppColors.textColor2,
                       onTap: () {
-                        context.read<MovementCubit>().startDanceParty();
+                        setState(() {
+                          isDancing = !isDancing;
+                        });
+
+                        isDancing
+                            ? context.read<MovementCubit>().startDanceParty()
+                            : context.read<MovementCubit>().stopDance();
                       },
-                      backColor: AppColors.textColor2,
                     ),
 
                     SizedBox(height: sh * 0.06),

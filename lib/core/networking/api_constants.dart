@@ -6,14 +6,13 @@ class ApiConstants {
   static String robotIp = "192.168.1.16";
 
   static String socketUrl = "ws://$aiServerIp:8080/";
-
   static String aiBaseUrl = "http://$aiServerIp:8000/flutter";
 
-  static String robotGreet = "http://$aiServerIp:8000/greet";
-  static String robotDance = "http://$aiServerIp:8000/dance";
+  static String iotBaseUrl = "http://$robotIp";
 
-  static String iotBaseUrl = "http://$aiServerIp:8000/move";
-  static String robotForward = "$iotBaseUrl/forward";
-  static String robotBackward = "$iotBaseUrl/backward";
-  static String robotStop = "$iotBaseUrl/stop";
+  static String robotDance = "$iotBaseUrl/dance";
+  static String robotGreet = "$iotBaseUrl/greet";
+  static String robotForward = "$iotBaseUrl/move/forward";
+  static String robotBackward = "$iotBaseUrl/move/backward";
+  static String robotStop = "$iotBaseUrl/move/stop";
 }

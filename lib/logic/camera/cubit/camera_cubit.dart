@@ -57,6 +57,7 @@ class CameraCubit extends Cubit<CameraState> {
     emit(CameraLoadingState());
 
     try {
+      await apiService.sendCommand(ApiConstants.robotGreet);
       final AiResponse? result = await cameraRepository.getDetectedResult("F");
 
       if (result != null && result.status == "success") {
@@ -79,10 +80,7 @@ class CameraCubit extends Cubit<CameraState> {
         log("HELLO $name");
         emit(CameraSuccessState("Hello, $name! 😊"));
 
-        await apiService.sendCommand(
-          "Greeting",
-          customUrl: ApiConstants.robotGreet,
-        );
+        await apiService.sendCommand(ApiConstants.robotGreet);
       } else {
         emit(CameraSuccessState("Welcome! Happy to see you ✨"));
       }
