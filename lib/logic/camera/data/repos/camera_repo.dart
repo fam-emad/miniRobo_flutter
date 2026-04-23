@@ -74,4 +74,16 @@ class CameraRepo {
       rethrow;
     }
   }
+
+   Future<bool> info(String mode) async {
+    try {
+      //send mode to ai 
+      final response = await apiService.sendAiRequest(mode: mode);
+      //send mode to iot
+      await apiService.sendCommand(mode);
+      return response.statusCode == 200;
+    } catch (e) {
+      return false;
+    }
+  }
 }

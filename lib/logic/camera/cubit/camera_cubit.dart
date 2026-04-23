@@ -90,4 +90,21 @@ class CameraCubit extends Cubit<CameraState> {
       emit(CameraErrorState("Connection Error: ${e.toString()}"));
     }
   }
+Future<void> sendInfo(String mode) async {
+  emit(CameraLoadingState());
+  print('object');
+
+  try {
+    final success = await cameraRepository.info(mode);
+
+    if (success) {
+      emit(CameraSuccessState("Command $mode executed"));
+    } else {
+      emit(CameraErrorState("Failed to execute $mode"));
+    }
+  } catch (e) {
+    emit(CameraErrorState("Error: ${e.toString()}"));
+  }
+}
+   
 }

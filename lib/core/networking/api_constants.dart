@@ -1,6 +1,6 @@
 class ApiConstants {
   //ai server
-  static String aiServerIp = "192.168.11.164";
+  static String aiServerIp = "192.168.11.129";
 
   //esp ip
   static String robotIp = "192.168.1.16";
