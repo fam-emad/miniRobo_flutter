@@ -140,17 +140,12 @@ class _CameraState extends State<Camera> {
           ),
           ElevatedButton(
             onPressed: () {
-              // 1. تحديث القيمة الثابتة
               ApiConstants.aiServerIp = ipController.text;
 
-              // 2. تحديث الواجهة باستخدام setState
-              setState(() {
-                // هذا سيجعل الشاشة تعيد بناء نفسها بالعنوان الجديد (الـ IP الجديد)
-              });
+              setState(() {});
 
               Navigator.pop(context);
 
-              // اختياري: إظهار رسالة تأكيد
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("IP Updated to: ${ApiConstants.aiServerIp}"),
