@@ -2,14 +2,14 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
-import 'package:mini_robo/core/networking/api_service.dart';
+import 'package:mini_robo/core/networking/http_service.dart';
 import 'package:mini_robo/logic/camera/data/models/ai_response.dart';
 import 'package:mini_robo/logic/camera/data/repos/camera_repo.dart';
 import 'package:mini_robo/logic/camera/cubit/camera_states.dart';
 
 class CameraCubit extends Cubit<CameraState> {
   final CameraRepo cameraRepository;
-  final ApiService apiService;
+  final HttpService apiService;
   CameraCubit(this.cameraRepository, this.apiService)
     : super(CameraInitialState());
   Future<void> activateMode(String mode) async {
@@ -79,9 +79,12 @@ class CameraCubit extends Cubit<CameraState> {
         log("HELLO $name");
         emit(CameraSuccessState("Hello, $name! 😊"));
 
-        await apiService.sendCommand(ApiConstants.robotGreet);
+        await apiService.sendCommand(
+          "Greeting",
+          customUrl: ApiConstants.robotGreet,
+        );
       } else {
-        emit(CameraSuccessState("Welcome! Happy to see you. ✨"));
+        emit(CameraSuccessState("Welcome! Happy to see you ✨"));
       }
     } catch (e) {
       emit(CameraErrorState("Connection Error: ${e.toString()}"));

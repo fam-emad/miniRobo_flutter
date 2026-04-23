@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
-import 'package:mini_robo/core/networking/api_service.dart';
+import 'package:mini_robo/core/networking/http_service.dart';
 import 'package:mini_robo/logic/camera/data/repos/camera_repo.dart';
 import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
@@ -85,7 +85,7 @@ class _CameraState extends State<Camera> {
                     MaterialPageRoute(
                       builder: (context) => BlocProvider(
                         create: (context) {
-                          final apiService = ApiService();
+                          final apiService = HttpService();
                           return CameraCubit(
                             CameraRepo(apiService),
                             apiService,

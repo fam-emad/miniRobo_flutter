@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:mini_robo/core/networking/api_constants.dart';
 
-class ApiService {
+class HttpService {
   final http.Client client = http.Client();
 
   Future<http.Response> sendAiRequest({
@@ -25,13 +26,20 @@ class ApiService {
     return temp;
   }
 
-  Future<void> sendCommand(String endpoint) async {
+  Future<void> sendCommand(String mode, {String? customUrl}) async {
     try {
-      final response = await http.get(
-        Uri.parse('$ApiConstants.iotBaseUrl$ApiConstants.endpoint'),
+      // final response = await http.get(
+      //   Uri.parse('$ApiConstants.iotBaseUrl$ApiConstants.endpoint'),
+      // );
+
+      final url = Uri.parse(customUrl ?? ApiConstants.iotBaseUrl);
+      final response = await client.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'active_mode': mode}),
       );
       if (response.statusCode == 200) {
-        print("Command $endpoint sent successfully!");
+        print("Command $mode sent successfully!");
       }
     } catch (e) {
       print("Error sending command: $e");

@@ -4,10 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:mini_robo/logic/camera/data/models/ai_response.dart';
-import '../../../../core/networking/api_service.dart';
+import '../../../../core/networking/http_service.dart';
 
 class CameraRepo {
-  final ApiService apiService;
+  final HttpService apiService;
   CameraRepo(this.apiService);
 
   Future<Uint8List> compressImage(File file) async {
@@ -51,7 +51,10 @@ class CameraRepo {
 
   Future<bool> activateMode(String mode) async {
     try {
+      //send mode to ai 
       final response = await apiService.sendAiRequest(mode: mode);
+      //send mode to iot
+      await apiService.sendCommand(mode);
       return response.statusCode == 200;
     } catch (e) {
       return false;

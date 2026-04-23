@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
+import 'package:mini_robo/features/feedback/widgets/feedback_screen.dart';
 import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
 import 'package:mini_robo/logic/camera/cubit/camera_states.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
@@ -70,7 +71,12 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FeedbackScreen(),
+                                ),
+                              ),
                               icon: Icon(
                                 Icons.arrow_back_ios_rounded,
                                 size: sw * 0.07,

@@ -1,14 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
-import 'package:mini_robo/core/networking/api_service.dart';
+import 'package:mini_robo/core/networking/http_service.dart';
 import 'package:mini_robo/core/networking/socket_service.dart';
 import 'movement_states.dart';
 
 class MovementCubit extends Cubit<MovementState> {
-  final ApiService apiService;
+  final HttpService httpService;
   final SocketService socketService;
 
-  MovementCubit(this.apiService, this.socketService)
+  MovementCubit(this.httpService, this.socketService)
     : super(MovementInitial()) {
     _initConnection();
   }
@@ -28,7 +28,7 @@ class MovementCubit extends Cubit<MovementState> {
   Future<void> startDanceParty() async {
     emit(MovementLoading());
     try {
-      await apiService.sendCommand(ApiConstants.robotDance);
+      await httpService.sendCommand(ApiConstants.robotDance);
       emit(MovementSuccess("The robot is dancing now!"));
     } catch (e) {
       emit(MovementError("Could not start the party. Check connection."));
@@ -37,7 +37,7 @@ class MovementCubit extends Cubit<MovementState> {
 
   Future<void> stopDance() async {
     try {
-      await apiService.sendCommand("/stop");
+      await httpService.sendCommand("/stop");
       emit(MovementInitial());
     } catch (e) {
       emit(MovementError("Failed to stop the robot"));
@@ -46,7 +46,7 @@ class MovementCubit extends Cubit<MovementState> {
 
   Future<void> startGreeting() async {
     try {
-      await apiService.sendCommand("/greet");
+      await httpService.sendCommand("/greet");
       emit(MovementSuccess("Robot says Hi! 👋"));
     } catch (e) {
       emit(MovementError("Error sending greeting"));

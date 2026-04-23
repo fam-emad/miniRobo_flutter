@@ -16,6 +16,7 @@ class CustomButton extends StatefulWidget {
   final double? iconsize;
   final Color? iconcolor;
   final bool? forAutomatic;
+  final bool? isIcon;
   const CustomButton({
     super.key,
     required this.text,
@@ -31,6 +32,7 @@ class CustomButton extends StatefulWidget {
     this.iconsize,
     this.iconcolor,
     this.forAutomatic,
+    this.isIcon = false,
   });
 
   @override
@@ -84,8 +86,20 @@ class _CustomButtonState extends State<CustomButton> {
                   widget.fontColor ??
                   (widget.isActive
                       ? AppColors.textColor
-                      : AppColors.textColor2), fontWeight: FontWeight.bold,
+                      : AppColors.textColor2),
+              fontWeight: FontWeight.bold,
             ),
+            widget.isIcon ?? true
+                ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                      widget.icon,
+                      size: widget.iconsize,
+                      color: widget.iconcolor,
+                    ),
+                )
+                : Icon(null),
+
             widget.isImage ?? true
                 ? Image(
                     image: AssetImage("assets/images/Treble Clef.png"),
