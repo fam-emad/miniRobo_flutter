@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:mini_robo/core/networking/api_constants.dart';
@@ -26,27 +25,20 @@ class HttpService {
     return temp;
   }
 
-  Future<void> sendCommand(String mode, {String? customUrl}) async {
+  Future<void> sendCommand(String url) async {
     try {
-      // final response = await http.get(
-      //   Uri.parse('$ApiConstants.iotBaseUrl$ApiConstants.endpoint'),
-      // );
+      log("sending: $url");
+      final response = await client.get(Uri.parse(url));
 
-      final url = Uri.parse(customUrl ?? ApiConstants.iotBaseUrl);
-      final response = await client.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'active_mode': mode}),
-      );
       if (response.statusCode == 200) {
-        print("Command $mode sent successfully!");
+        print("Command $url sent successfully!");
       }
     } catch (e) {
       print("Error sending command: $e");
     }
   }
 
-  void startDancing() => sendCommand('/dance');
+  void startDancing() => sendCommand(ApiConstants.robotDance);
 
-  void startGreeting() => sendCommand('/greet');
+  void startGreeting() => sendCommand(ApiConstants.robotGreet);
 }
