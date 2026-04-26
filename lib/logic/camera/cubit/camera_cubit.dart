@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/networking/http_service.dart';
 import 'package:mini_robo/logic/camera/data/models/ai_response.dart';
 import 'package:mini_robo/logic/camera/data/repos/camera_repo.dart';
@@ -57,7 +56,7 @@ class CameraCubit extends Cubit<CameraState> {
     emit(CameraLoadingState());
 
     try {
-      await apiService.sendCommand(ApiConstants.robotGreet);
+      await apiService.sendAiRequest(mode: "G");
       final AiResponse? result = await cameraRepository.getDetectedResult("F");
 
       if (result != null && result.status == "success") {
@@ -80,7 +79,7 @@ class CameraCubit extends Cubit<CameraState> {
         log("HELLO $name");
         emit(CameraSuccessState("Hello, $name! 😊"));
 
-        await apiService.sendCommand(ApiConstants.robotGreet);
+        await apiService.sendAiRequest(mode: "G");
       } else {
         emit(CameraSuccessState("Welcome! Happy to see you ✨"));
       }

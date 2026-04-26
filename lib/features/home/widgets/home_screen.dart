@@ -19,6 +19,17 @@ class _HomeState extends State<Home> {
   bool isDancing = false;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<MovementCubit>().startGreeting();
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
     final double sh = MediaQuery.of(context).size.height;

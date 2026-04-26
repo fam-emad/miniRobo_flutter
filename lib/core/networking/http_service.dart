@@ -10,8 +10,7 @@ class HttpService {
     dynamic body,
   }) async {
     final url = Uri.parse(ApiConstants.aiBaseUrl);
-    log("Sent to AI: $mode");
-    if (body != null) {}
+    // if (body != null) {}
 
     final headers = {
       'mode': mode,
@@ -21,6 +20,7 @@ class HttpService {
     var temp = await client
         .post(url, headers: headers, body: body)
         .timeout(const Duration(seconds: 60));
+    log("Sent to AI: $mode");
 
     return temp;
   }
@@ -31,14 +31,14 @@ class HttpService {
       final response = await client.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        print("Command $url sent successfully!");
+        log("Command $url sent successfully!");
       }
     } catch (e) {
-      print("Error sending command: $e");
+      log("Error sending command: $e");
     }
   }
 
-  void startDancing() => sendCommand(ApiConstants.robotDance);
+  void startDancing() => sendCommand(ApiConstants.aiBaseUrl);
 
-  void startGreeting() => sendCommand(ApiConstants.robotGreet);
+  void startGreeting() => sendCommand(ApiConstants.aiBaseUrl);
 }

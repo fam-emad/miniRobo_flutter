@@ -14,7 +14,7 @@ class _InformationState extends State<Information> {
   @override
   Widget build(BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
-    final double sh = MediaQuery.of(context).size.height;
+    final double sh = MediaQuery.of(context).size.height; 
 
     // Data list for your grid items
     final List<Map<String, dynamic>> infoItems = [

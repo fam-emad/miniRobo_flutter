@@ -1,3 +1,5 @@
+import 'dart:nativewrappers/_internal/vm/lib/developer.dart';
+
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class SocketService {
@@ -9,19 +11,19 @@ class SocketService {
     try {
       _channel = WebSocketChannel.connect(Uri.parse(url));
       isConnected = true;
-      print('Connected to WebSocket at $url');
+      log('Connected to WebSocket at $url');
     } catch (e) {
       isConnected = false;
-      print('Error connecting to WebSocket: $e');
+      log('Error connecting to WebSocket: $e');
     }
   }
 
   void sendCommand(String command) {
     if (isConnected && _channel != null) {
       _channel!.sink.add(command);
-      print('Sent command: $command');
+      log('Sent command: $command');
     } else {
-      print('Cannot send command, not connected to WebSocket.');
+      log('Cannot send command, not connected to WebSocket.');
     }
   }
 
@@ -29,9 +31,9 @@ class SocketService {
     if (isConnected && _channel != null) {
       _channel!.sink.close();
       isConnected = false;
-      print('Disconnected from WebSocket.');
+      log('Disconnected from WebSocket.');
     } else {
-      print('Cannot disconnect, not connected to WebSocket.');
+      log('Cannot disconnect, not connected to WebSocket.');
     }
   }
 }

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/logic/camera/data/models/ai_response.dart';
 import '../../../../core/networking/http_service.dart';
 
@@ -57,15 +56,19 @@ class CameraRepo {
         modeChar = "F";
       } else if (mode == "object") {
         modeChar = "O";
+      } else if (mode == "dance") {
+        modeChar = "D";
+      } else if (mode == "greeting") {
+        modeChar = "G";
       } else {
         modeChar = "R";
       }
       //send mode to ai
-      final response = await apiService.sendAiRequest(mode: mode);
+      final response = await apiService.sendAiRequest(mode: modeChar);
       //send mode to iot
-      await apiService.sendCommand(
-        "${ApiConstants.iotBaseUrl}/set_mode?m=$modeChar",
-      );
+      // await apiService.sendCommand(
+      //   "${ApiConstants.iotBaseUrl}/set_mode?m=$modeChar",
+      // );
       return response.statusCode == 200;
     } catch (e) {
       return false;

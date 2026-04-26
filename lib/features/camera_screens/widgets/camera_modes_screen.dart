@@ -155,7 +155,7 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
   }) {
     return CustomButton(
       text: text,
-      fontSize: sw * 0.04,
+      fontSize: sw * 0.02,
       width: sw * 0.28,
       height: sh * 0.07,
       isActive: mode != null && myMode == mode,

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/networking/http_service.dart';
@@ -31,7 +30,7 @@ class MovementCubit extends Cubit<MovementState> {
   Future<void> startDanceParty() async {
     emit(MovementLoading());
     try {
-      await httpService.sendCommand(ApiConstants.robotDance);
+      await httpService.sendAiRequest(mode: "D");
       emit(MovementSuccess("The robot is dancing now!"));
 
       _danceTimer?.cancel();
@@ -56,7 +55,7 @@ class MovementCubit extends Cubit<MovementState> {
 
   Future<void> startGreeting() async {
     try {
-      await httpService.sendCommand(ApiConstants.robotGreet);
+      await httpService.sendAiRequest(mode: "G");
       emit(MovementSuccess("Robot says Hi! 👋"));
     } catch (e) {
       emit(MovementError("Error sending greeting"));

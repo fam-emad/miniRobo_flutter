@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
-import 'package:mini_robo/features/camera_screens/widgets/main_camera_screen.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
+import 'package:mini_robo/shared/buttons/custom_navigation_bottom.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
@@ -24,7 +24,7 @@ void _answer(BuildContext context) {
   );
   Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const Camera()),
+    MaterialPageRoute(builder: (context) => const BottomNavigationCustom()),
   );
 }
 

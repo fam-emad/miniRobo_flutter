@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
+import 'package:mini_robo/core/networking/http_service.dart';
 import 'package:mini_robo/core/networking/socket_service.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
 import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
@@ -13,22 +14,31 @@ class SwitchCustom extends StatefulWidget {
 
 class _SwitchCustomState extends State<SwitchCustom> {
   final SocketService socketService = SocketService();
+  final HttpService httpService = HttpService();
   bool inManualMode = false;
 
-  void _send(String cmd) => socketService.sendCommand(cmd);
+  // void _send(String cmd)  {
+  //   socketService.sendCommand(cmd);
+    
+  //   //لو هنلغي دور الesp
+  //   // httpService.sendCommand(url); url -> string
+  //   }
 
   @override
   void initState() {
-    socketService.connect("ws://${ApiConstants.aiServerIp}:8080/");
+    socketService.connect(ApiConstants.socketUrl);
     super.initState();
   }
 
   void toggleManualMode() {
     setState(() {
       inManualMode = !inManualMode;
-      _send(
-        inManualMode ? "MANUAL MOVEMENT MODE ON" : "MANUAL MOVEMENT MODE OFF",
+      httpService.sendAiRequest(
+        mode: inManualMode ? "MANUAL_ON" : "MANUAL_OFF",
       );
+      // _send(
+      //   inManualMode ? "MANUAL MOVEMENT MODE ON" : "MANUAL MOVEMENT MODE OFF",
+      // );
     });
   }
 
@@ -48,9 +58,11 @@ class _SwitchCustomState extends State<SwitchCustom> {
     double? heightFactor,
   }) {
     return GestureDetector(
-      onTapDown: (_) => _send("$command START"),
-      onTapUp: (_) => _send("$command STOP"),
-      onTapCancel: () => _send("$command STOP"),
+onTapDown: (_) => socketService.sendCommand(command),
+      onTapUp: (_) => socketService.sendCommand("STOP"),
+      onTapCancel: () => socketService.sendCommand("STOP"),
+      // onTapDown: (_) => _send(ApiConstants.robotForward),
+      // onTapUp: (_) => _send(ApiConstants.robotStop),
       child: CustomGlassBox(
         icon: icon,
         text: label,
