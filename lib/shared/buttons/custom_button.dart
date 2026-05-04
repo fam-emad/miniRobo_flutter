@@ -91,13 +91,13 @@ class _CustomButtonState extends State<CustomButton> {
             ),
             widget.isIcon ?? true
                 ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
                       widget.icon,
                       size: widget.iconsize,
                       color: widget.iconcolor,
                     ),
-                )
+                  )
                 : Icon(null),
 
             widget.isImage ?? true

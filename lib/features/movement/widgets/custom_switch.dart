@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
-import 'package:mini_robo/core/networking/http_service.dart';
-import 'package:mini_robo/core/networking/socket_service.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
+import 'package:mini_robo/logic/movement/movement_cubit.dart';
 import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
 
 class SwitchCustom extends StatefulWidget {
@@ -13,39 +13,13 @@ class SwitchCustom extends StatefulWidget {
 }
 
 class _SwitchCustomState extends State<SwitchCustom> {
-  final SocketService socketService = SocketService();
-  final HttpService httpService = HttpService();
   bool inManualMode = false;
-
-  // void _send(String cmd)  {
-  //   socketService.sendCommand(cmd);
-    
-  //   //لو هنلغي دور الesp
-  //   // httpService.sendCommand(url); url -> string
-  //   }
-
-  @override
-  void initState() {
-    socketService.connect(ApiConstants.socketUrl);
-    super.initState();
-  }
 
   void toggleManualMode() {
     setState(() {
       inManualMode = !inManualMode;
-      httpService.sendAiRequest(
-        mode: inManualMode ? "MANUAL_ON" : "MANUAL_OFF",
-      );
-      // _send(
-      //   inManualMode ? "MANUAL MOVEMENT MODE ON" : "MANUAL MOVEMENT MODE OFF",
-      // );
+      context.read<MovementCubit>().toggleManualMode(inManualMode);
     });
-  }
-
-  @override
-  void dispose() {
-    socketService.disconnect();
-    super.dispose();
   }
 
   Widget _buildMovementBtn({
@@ -58,11 +32,9 @@ class _SwitchCustomState extends State<SwitchCustom> {
     double? heightFactor,
   }) {
     return GestureDetector(
-onTapDown: (_) => socketService.sendCommand(command),
-      onTapUp: (_) => socketService.sendCommand("STOP"),
-      onTapCancel: () => socketService.sendCommand("STOP"),
-      // onTapDown: (_) => _send(ApiConstants.robotForward),
-      // onTapUp: (_) => _send(ApiConstants.robotStop),
+      onTapDown: (_) => context.read<MovementCubit>().manualMovement(command),
+      onTapUp: (_) => context.read<MovementCubit>().manualMovement(ApiConstants.stop),
+      onTapCancel: () =>context.read<MovementCubit>().manualMovement(ApiConstants.stop),
       child: CustomGlassBox(
         icon: icon,
         text: label,
@@ -73,7 +45,7 @@ onTapDown: (_) => socketService.sendCommand(command),
         iconsize: sw * 0.09,
         iconcolor: AppColors.primaryColor,
         radius: 12,
-        fontSize: sw * 0.035,
+        fontSize: sw * 0.025,
       ),
     );
   }
@@ -172,14 +144,14 @@ onTapDown: (_) => socketService.sendCommand(command),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildSideColumn(sw, 'LH'),
+                      _buildSideColumn(sw, 'L'),
 
                       Column(
                         children: [
                           _buildMovementBtn(
                             icon: Icons.keyboard_double_arrow_up,
-                            label: 'FWD',
-                            command: 'MOVE FORWARD',
+                            label: 'MF',
+                            command: 'MF',
                             backColor: AppColors.primaryColor.withValues(
                               alpha: 0.8,
                             ),
@@ -189,8 +161,8 @@ onTapDown: (_) => socketService.sendCommand(command),
                           SizedBox(height: sh * 0.01),
                           _buildMovementBtn(
                             icon: Icons.keyboard_double_arrow_down,
-                            label: 'BWD',
-                            command: 'MOVE BACKWARD',
+                            label: 'MB',
+                            command: 'MB',
                             backColor: AppColors.primaryColor.withValues(
                               alpha: 0.8,
                             ),
@@ -200,7 +172,7 @@ onTapDown: (_) => socketService.sendCommand(command),
                         ],
                       ),
 
-                      _buildSideColumn(sw, 'RH'),
+                      _buildSideColumn(sw, 'R'),
                     ],
                   ),
                 ),
@@ -217,16 +189,16 @@ onTapDown: (_) => socketService.sendCommand(command),
       children: [
         _buildMovementBtn(
           icon: Icons.keyboard_arrow_up,
-          label: '$prefix UP',
-          command: '$prefix UP',
+          label: '${prefix}U',
+          command: '${prefix}U',
           backColor: AppColors.textColor2,
           sw: sw * 0.9,
         ),
         SizedBox(height: 5),
         _buildMovementBtn(
           icon: Icons.keyboard_arrow_down,
-          label: '$prefix DWN',
-          command: '$prefix DOWN',
+          label: '${prefix}D',
+          command: '${prefix}D',
           backColor: AppColors.textColor2,
           sw: sw * 0.9,
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
+import 'package:mini_robo/logic/camera/camera_cubit.dart';
 import 'package:mini_robo/shared/buttons/custom_glass_box.dart';
 import 'package:mini_robo/shared/texts/custom_title.dart';
 
@@ -14,7 +16,7 @@ class _InformationState extends State<Information> {
   @override
   Widget build(BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
-    final double sh = MediaQuery.of(context).size.height; 
+    final double sh = MediaQuery.of(context).size.height;
 
     // Data list for your grid items
     final List<Map<String, dynamic>> infoItems = [
@@ -22,28 +24,44 @@ class _InformationState extends State<Information> {
         'icon': Icons.phone_iphone,
         'text': 'Flutter',
         'color': AppColors.textColor2,
+        'ontap': () {
+          context.read<CameraCubit>().sendInfo("Flutter");
+          print('flutterrrr');
+        },
       },
       {
         'icon': Icons.device_hub,
         'text': 'IOT',
         'color': AppColors.primaryColor,
         'iconColor': AppColors.secondaryColor,
+        'ontap': () {
+          context.read<CameraCubit>().sendInfo("IOT");
+        },
       },
       {
         'icon': Icons.auto_awesome,
         'text': 'AI',
         'color': AppColors.primaryColor,
         'iconColor': AppColors.secondaryColor,
+        'ontap': () {
+          context.read<CameraCubit>().sendInfo("AI");
+        },
       },
       {
         'icon': Icons.movie_edit,
         'text': 'Media',
         'color': AppColors.textColor2,
+        'ontap': () {
+          context.read<CameraCubit>().sendInfo("Media");
+        },
       },
       {
         'icon': Icons.control_camera,
         'text': 'ROV',
         'color': AppColors.textColor2,
+        'ontap': () {
+          context.read<CameraCubit>().sendInfo("ROV");
+        },
       },
     ];
 
@@ -52,12 +70,12 @@ class _InformationState extends State<Information> {
         child: Stack(
           children: [
             Padding(
-              padding:  EdgeInsetsGeometry.fromLTRB(
-            sw * 0.05,
-            sw * 0.15,
-            sw * 0.05,
-            0,
-          ),
+              padding: EdgeInsetsGeometry.fromLTRB(
+                sw * 0.05,
+                sw * 0.15,
+                sw * 0.05,
+                0,
+              ),
               child: Column(
                 children: [
                   const CustomTitle(),
@@ -88,6 +106,7 @@ class _InformationState extends State<Information> {
                           iconcolor: item['iconColor'],
                           radius: 20,
                           fontSize: sw * 0.04,
+                          ontap: item['ontap'],
                           // Note: height/width are often handled by GridView constraints
                         );
                       },

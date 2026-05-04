@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
 import 'package:mini_robo/features/feedback/widgets/feedback_screen.dart';
-import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
-import 'package:mini_robo/logic/camera/cubit/camera_states.dart';
+import 'package:mini_robo/logic/camera/camera_cubit.dart';
+import 'package:mini_robo/logic/camera/camera_states.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/buttons/custom_modes_buttons.dart';
@@ -25,14 +25,18 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
       myMode = mode;
     });
 
-    if (mounted) {
-      if (mode == "Greeting") {
-        context.read<CameraCubit>().activateGreeting();
-      } else {
-        String apiMode = (mode == "Object") ? "O" : "F";
-        context.read<CameraCubit>().activateMode(apiMode);
-      }
-    }
+    // if (mounted) {
+    //   if (mode == "Greeting") {
+    //     context.read<MovementCubit>().greeting();
+    //   } else {
+    //     String apiMode = (mode == "Object") ? "O" : "F";
+    //     apiMode == "O"
+    //         ? context.read<CameraCubit>().activateCameraModes(apiMode)
+    //         : context.read<CameraCubit>().activateCameraModes(apiMode);
+    //   }
+    // }
+    String apiMode = (mode == "Object") ? "O" : "F";
+    context.read<CameraCubit>().activateCameraModes(apiMode);
   }
 
   @override
@@ -41,18 +45,20 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
     final double sh = MediaQuery.of(context).size.height;
 
     return BlocConsumer<CameraCubit, CameraState>(
-      listener: (context, state) {
-        if (state is CameraErrorState) {
+      listener: (context, cameraState) {
+        if (cameraState is CameraErrorState) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text(state.error)));
-        } else if (state is CameraSuccessState) {
+          ).showSnackBar(SnackBar(content: Text(cameraState.msg)));
+        } else if (cameraState is CameraSuccessState) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text(state.msg)));
+          ).showSnackBar(SnackBar(content: Text(cameraState.msg)));
         }
       },
-      builder: (context, state) {
+      builder: (context, cameraState) {
+        final isLoading = cameraState is CameraLoadingState;
+
         return Scaffold(
           body: SafeArea(
             child: Stack(
@@ -111,15 +117,15 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                         children: [
                           _buildModeBtn("Face ID", sw, sh, isNav: true),
                           _buildModeBtn("Detection", sw, sh, mode: "Object"),
-                          _buildModeBtn("Greeting", sw, sh, mode: "Greeting"),
+                          _buildModeBtn("Greeting", sw, sh, mode: "Face"),
                         ],
                       ),
 
                       SizedBox(height: sh * 0.04),
 
                       CustomModesButtons(
-                        text: state is CameraSuccessState
-                            ? state.msg
+                        text: cameraState is CameraSuccessState
+                            ? cameraState.msg
                             : (myMode == "Object"
                                   ? "Object is scanning..."
                                   : "  Ready to Process ✨"),
@@ -130,7 +136,7 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
                   ),
                 ),
 
-                if (state is CameraLoadingState)
+                if (isLoading)
                   Container(
                     color: Colors.black26,
                     child: const Center(
@@ -155,7 +161,7 @@ class _CameraModesScreenState extends State<CameraModesScreen> {
   }) {
     return CustomButton(
       text: text,
-      fontSize: sw * 0.02,
+      fontSize: sw * 0.04,
       width: sw * 0.28,
       height: sh * 0.07,
       isActive: mode != null && myMode == mode,

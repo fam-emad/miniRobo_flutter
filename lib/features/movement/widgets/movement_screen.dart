@@ -78,7 +78,7 @@ class _MovementState extends State<Movement> {
           ),
           ElevatedButton(
             onPressed: () {
-              ApiConstants.robotIp = ipController.text;
+              ApiConstants.aiServerIp = ipController.text;
 
               setState(() {});
 
@@ -86,7 +86,7 @@ class _MovementState extends State<Movement> {
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("IP Updated to: ${ApiConstants.robotIp}"),
+                  content: Text("IP Updated to: ${ApiConstants.aiServerIp}"),
                 ),
               );
             },

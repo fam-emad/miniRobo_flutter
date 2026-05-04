@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
+import 'package:mini_robo/core/networking/http_repo.dart';
 import 'package:mini_robo/core/networking/http_service.dart';
-import 'package:mini_robo/logic/camera/data/repos/camera_repo.dart';
-import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
+import 'package:mini_robo/logic/camera/camera_cubit.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_file.dart';
 import 'package:mini_robo/features/camera_screens/widgets/camera_modes_screen.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
@@ -86,10 +86,7 @@ class _CameraState extends State<Camera> {
                       builder: (context) => BlocProvider(
                         create: (context) {
                           final apiService = HttpService();
-                          return CameraCubit(
-                            CameraRepo(apiService),
-                            apiService,
-                          );
+                          return CameraCubit(HttpRepo(apiService));
                         },
                         child: const CameraModesScreen(),
                       ),

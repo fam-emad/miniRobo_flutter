@@ -44,6 +44,7 @@ dependencies:
   flutter_image_compress: ^2.3.0
   web_socket_channel: ^3.0.3
   http_parser: ^4.0.0
+  dio: ^5.9.2
 
 dev_dependencies:
   flutter_lints: ^5.0.0

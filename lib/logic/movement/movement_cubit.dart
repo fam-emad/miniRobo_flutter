@@ -1,64 +1,69 @@
-import 'dart:async';
+import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
-import 'package:mini_robo/core/networking/http_service.dart';
-import 'package:mini_robo/core/networking/socket_service.dart';
-import 'movement_states.dart';
+import 'package:mini_robo/core/networking/http_repo.dart';
+import 'package:mini_robo/logic/movement/movement_states.dart';
 
 class MovementCubit extends Cubit<MovementState> {
-  final HttpService httpService;
-  final SocketService socketService;
+  final HttpRepo repo;
+  MovementCubit(this.repo) : super(MovementInitial());
 
-  MovementCubit(this.httpService, this.socketService)
-    : super(MovementInitial()) {
-    _initConnection();
-  }
-  Timer? _danceTimer;
-
-  void _initConnection() {
-    socketService.connect(ApiConstants.socketUrl);
-  }
-
-  void sendManualCommand(String cmd) {
-    if (socketService.isConnected) {
-      socketService.sendCommand(cmd);
-    } else {
-      emit(MovementError("Could not start the party. Check connection."));
-    }
-  }
-
-  Future<void> startDanceParty() async {
-    emit(MovementLoading());
+  Future<void> _customRequest(
+    Future<bool> request,
+    String successMsg,
+    String errorMsg,
+  ) async {
     try {
-      await httpService.sendAiRequest(mode: "D");
-      emit(MovementSuccess("The robot is dancing now!"));
-
-      _danceTimer?.cancel();
-
-      _danceTimer = Timer(const Duration(seconds: 30), () {
-        if (!isClosed) stopDance();
-      });
-    } catch (e) {
-      emit(MovementError("Could not start the party. Check connection."));
+      emit(MovementLoading());
+      final response = await request;
+      if (response == true) {
+        emit(MovementSuccess(successMsg));
+      } else {
+        emit(MovementError(errorMsg));
+      }
+    } on DioException catch (e) {
+      emit(MovementError("Network error: ${e.toString()}"));
     }
   }
 
-  Future<void> stopDance() async {
-    _danceTimer?.cancel();
+  Future<void> dancing() async {
+    await _customRequest(
+      repo.activateMood(ApiConstants.dancing),
+      "Dancing mood activated successfully",
+      "Dancing can not activate",
+    );
+    log("Dancing ON");
+  }
+
+  Future<void> greeting() async {
+    await _customRequest(
+      repo.activateMood(ApiConstants.greeting),
+      "Greeting mood activated successfully",
+      "Greeting can not activate",
+    );
+    log("Greeting ON");
+  }
+
+  Future<void> manualMovement(mode) async {
     try {
-      await httpService.sendCommand(ApiConstants.robotStop);
-      emit(MovementInitial());
-    } catch (e) {
-      emit(MovementError("Failed to stop the robot"));
+      await repo.activateMood(mode);
+      log("Movement ON");
+    } on DioException catch (e) {
+      log("Error sending manual command: $e");
     }
   }
 
-  Future<void> startGreeting() async {
+  Future<void> toggleManualMode(bool isOn) async {
     try {
-      await httpService.sendAiRequest(mode: "G");
-      emit(MovementSuccess("Robot says Hi! 👋"));
+      await repo.activateMood(isOn ? "ON" : "OFF");
     } catch (e) {
-      emit(MovementError("Error sending greeting"));
+      log("Error sending manual command: $e");
     }
+  }
+
+  void resetState() {
+    emit(MovementInitial());
+    log("Movement OFF");
   }
 }

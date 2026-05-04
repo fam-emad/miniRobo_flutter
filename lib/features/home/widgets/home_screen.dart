@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mini_robo/core/networking/api_constants.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
 import 'package:mini_robo/logic/movement/movement_cubit.dart';
 import 'package:mini_robo/logic/movement/movement_states.dart';
@@ -19,17 +20,6 @@ class _HomeState extends State<Home> {
   bool isDancing = false;
 
   @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        context.read<MovementCubit>().startGreeting();
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
     final double sh = MediaQuery.of(context).size.height;
@@ -38,7 +28,7 @@ class _HomeState extends State<Home> {
       listener: (context, state) {
         if (state is MovementInitial) {
           setState(() {
-            isDancing = false; //reset dancing mode
+            isDancing = false;
           });
         }
         if (state is MovementSuccess) {
@@ -49,6 +39,9 @@ class _HomeState extends State<Home> {
             ),
           );
         } else if (state is MovementError) {
+          setState(() {
+            isDancing = false;
+          });
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.error), backgroundColor: Colors.red),
           );
@@ -138,8 +131,10 @@ class _HomeState extends State<Home> {
                         });
 
                         isDancing
-                            ? context.read<MovementCubit>().startDanceParty()
-                            : context.read<MovementCubit>().stopDance();
+                            ? context.read<MovementCubit>().dancing()
+                            : context.read<MovementCubit>().manualMovement(
+                                ApiConstants.stop,
+                              );
                       },
                     ),
 

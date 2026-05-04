@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
-import 'package:mini_robo/logic/camera/cubit/camera_cubit.dart';
-import 'package:mini_robo/logic/camera/cubit/camera_states.dart';
+import 'package:mini_robo/logic/camera/camera_cubit.dart';
+import 'package:mini_robo/logic/camera/camera_states.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/texts/custom_text.dart';
 import 'package:mini_robo/shared/texts/custom_textfield.dart';
@@ -190,10 +190,7 @@ class _FaceIDScreenState extends State<FaceIDScreen> {
         );
         return;
       }
-      context.read<CameraCubit>().registerUser(
-        _userNameController.text,
-        image!,
-      );
+      context.read<CameraCubit>().register(_userNameController.text, image!);
     }
   }
 }

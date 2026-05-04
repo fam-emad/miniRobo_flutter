@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mini_robo/core/utils/app_colors.dart';
+import 'package:mini_robo/logic/movement/movement_cubit.dart';
 import 'package:mini_robo/shared/buttons/custom_navigation_bottom.dart';
 import 'package:mini_robo/shared/buttons/custom_button.dart';
 import 'package:mini_robo/shared/oval_gradient.dart';
@@ -35,6 +37,7 @@ class Start extends StatelessWidget {
               fontColor: AppColors.textColor2,
               backColor: AppColors.primaryColor,
               onTap: () {
+                context.read<MovementCubit>().dancing();
                 Navigator.push(
                   context,
                   MaterialPageRoute(

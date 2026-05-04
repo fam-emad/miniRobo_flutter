@@ -10,7 +10,6 @@ class CameraSuccessState extends CameraState {
 }
 
 class CameraErrorState extends CameraState {
-  final String error;
-
-  CameraErrorState(this.error);
+  final String msg; 
+  CameraErrorState(this.msg);
 }

@@ -1,44 +1,54 @@
 import 'dart:developer';
-import 'package:http/http.dart' as http;
+import 'dart:typed_data';
+import 'package:dio/dio.dart';
 import 'package:mini_robo/core/networking/api_constants.dart';
 
 class HttpService {
-  final http.Client client = http.Client();
-
-  Future<http.Response> sendAiRequest({
-    required String mode,
-    dynamic body,
-  }) async {
-    final url = Uri.parse(ApiConstants.aiBaseUrl);
-    // if (body != null) {}
-
-    final headers = {
-      'mode': mode,
-      'Content-Type': body != null ? 'image/jpeg' : 'application/json',
-    };
-
-    var temp = await client
-        .post(url, headers: headers, body: body)
-        .timeout(const Duration(seconds: 60));
-    log("Sent to AI: $mode");
-
-    return temp;
+  final Dio dio;
+  HttpService()
+    : dio = Dio(
+        BaseOptions(
+          // baseUrl: ApiConstants.aiBaseUrl,
+          connectTimeout: const Duration(seconds: 20),
+          receiveTimeout: const Duration(seconds: 20),
+        ),
+      ) {
+    dio.interceptors.add(
+      LogInterceptor(
+        requestBody: true,
+        responseBody: true,
+        requestHeader: true,
+        responseHeader: false,
+        error: true,
+        logPrint: (obj) => log(obj.toString()),
+      ),
+    );
   }
 
-  Future<void> sendCommand(String url) async {
+  Future<Response> sendAiRequest({
+    required String mode,
+    Uint8List? body,
+  }) async {
     try {
-      log("sending: $url");
-      final response = await client.get(Uri.parse(url));
-
-      if (response.statusCode == 200) {
-        log("Command $url sent successfully!");
+      final response = await dio.post(
+        ApiConstants.aiBaseUrl,
+        data: body,
+        options: Options(
+          headers: {
+            'mode': mode,
+            if (body != null) 'Content-Length': body.length.toString(),
+          },
+          contentType: body != null ? 'image/jpeg' : 'application/json',
+        ),
+      );
+      log("Sent to AI: $mode");
+      return response;
+    } on DioException catch (e) {
+      log("Error sending command: ${e.message}");
+      if (e.response != null) {
+        log("Server Data: ${e.response?.data}");
       }
-    } catch (e) {
-      log("Error sending command: $e");
+      rethrow;
     }
   }
-
-  void startDancing() => sendCommand(ApiConstants.aiBaseUrl);
-
-  void startGreeting() => sendCommand(ApiConstants.aiBaseUrl);
 }
