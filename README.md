@@ -10,20 +10,6 @@
 
 ---
 
-## 📱 Screenshots
-
-<p align="center">
-  <img src="screenshots/home.png" width="200" alt="Home"/>
-  &nbsp;
-  <img src="screenshots/movement.png" width="200" alt="Movement"/>
-  &nbsp;
-  <img src="screenshots/camera.png" width="200" alt="Camera"/>
-  &nbsp;
-  <img src="screenshots/info.png" width="200" alt="Info"/>
-</p>
-
----
-
 ## ✨ Features
 
 - 🕺 **Dance Mode** — Make the robot dance with one tap
